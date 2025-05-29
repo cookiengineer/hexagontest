@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en">
+<head>
+
+<meta charset="utf-8">
+<title>Flow Field Pathfinding for Tower Defense</title>
+<link rel="canonical" href="https://www.redblobgames.com/pathfinding/tower-defense/">
+<!--DO NOT EDIT: generated from redblobgames/pathfinding/tower-defense/index.bxml-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" as="image" href="/img/transparent-blob.png">
+<link rel="alternate" type="application/atom+xml" title="Blog posts" href="https://www.redblobgames.com/blog/posts.xml">
+<meta name="theme-color" content="hsl(0,50%,45%)">
+<link rel="preload" as="script" href="../diagram.js" crossorigin="1">
+<link rel="preload" as="script" href="../grid.js" crossorigin="1">
+<link rel="preload" as="script" href="../search.js" crossorigin="1">
+<link rel="preload" as="script" href="/mjs/draggable.v2.js" crossorigin="1">
+<script type="module" src="tower-defense.js?2021-10-26-10-16-50"></script><style>:root{--hue: 0;--bgurl: url("/img/transparent-blob.png")}/*! CSS Copyright 2007-2023 by amitp@cs.stanford.edu (Amit J. Patel)  *//*! I don't mind if you copy my stylesheet.  However, I'd appreciate it if you gave me credit. */body{--serif: "Iowan Old Style",Cambria,Georgia,serif;--sans-serif: "Avenir Next",Candara,Ubuntu,"Fira Sans",system-ui,"Segoe UI",sans-serif;--monospace: "Roboto Mono","Cascadia Code",Consolas,monospace,"Segoe UI Symbol",Symbol;--body-width: calc(100vw - 2.25rem);--font-size: calc(0.625rem + 1vw);--line-height: calc(1.5 * var(--font-size));font-family:var(--sans-serif);font-size:var(--font-size);line-height:1.5em;min-height:95%}@media (min-width: 34.375em){body{--body-width: min(20.6rem + 33vw, 41.25rem);--font-size: calc(var(--body-width) / 33)}}main{font-family:var(--serif)}h1,h2,h3,h4,h5,h6,figcaption,.sans-serif{font-family:var(--sans-serif);text-wrap:balance}tt,code,kbd,samp,pre{font-family:var(--monospace);font-size:0.8em}pre :is(tt, code, kbd, samp){font-size:unset}#table-of-contents{background-color:#fff;padding-left:1em;width:18em;float:right}#table-of-contents:after{clear:right}nav,#table-of-contents{font-family:var(--sans-serif);font-size:calc(var(--font-size) / 1.25)}nav a,#table-of-contents a{text-decoration-color:hsl(var(--hue), 20%, 90%)}@media screen{header,section>h2{text-shadow:0px 2px 5px rgba(0,0,0,0.8);text-rendering:optimizeLegibility}}h1{font-size:2.0em;margin:0;line-height:calc(1.5 * var(--line-height))}h1 .subheading{font-size:0.5em;line-height:var(--line-height)}sup,sub{position:relative;vertical-align:baseline;font-size:0.75em;line-height:0;padding-left:0.125em}sup{top:-0.5em}sub{bottom:-0.25em}details summary{cursor:pointer}*{box-sizing:border-box}html,body{margin:0;padding:0}html{background-color:#e4e4e0;color:#000}body{background-color:#fff;color:#333}header{display:block;text-align:center}header>h1{padding-top:var(--line-height)}@media screen{header,footer,.divider,section>h2{color:#fff;background-color:hsl(var(--hue), 50%, 45%);background-image:var(--bgurl), var(--bgurl), linear-gradient(180deg, hsl(var(--hue), 50%, 45%) 0%, hsl(var(--hue), 75%, 30%) 100%);background-position:0 0, 16px 16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}header a,footer a,.divider a,section>h2 a{color:hsl(var(--hue), 40%, 90%);background:unset;text-decoration:none}header a:hover,footer a:hover,.divider a:hover,section>h2 a:hover{background-color:rgba(0,0,0,0.5);text-decoration:underline}}footer a,.divider a{text-decoration:underline}main{margin-inline:0;padding-inline:0}section{margin:var(--line-height) 0}section>*{width:var(--body-width);max-width:100%}.comments{width:calc(1.5 * var(--body-width));max-width:100%}@media screen{.comments,.below-divider{background-color:#e6e6e5}}.comments{padding-bottom:1.25em;font-size:1.0em}.comments .comment-author{text-shadow:1px 1px 3px #fff}section>h2{--h2-margin: 3em;margin:var(--line-height) auto;padding:calc(var(--line-height) / 2 - 1px) 0;font-size:1.25em;width:calc(2 * var(--h2-margin) + var(--body-width));max-width:100%}section>h2>span{display:inline-block;margin-left:var(--h2-margin)}section>h2 a.anchor{float:right;width:calc(var(--h2-margin));text-align:center;color:hsl(var(--hue), 50%, 45%)}section>h2:hover a.anchor{color:hsl(var(--hue), 20%, 80%)}h3{--h2-margin: 3em;margin:var(--line-height) auto;font-size:1.125em}h3 a.anchor{float:right;width:calc(var(--h2-margin));text-align:center;color:hsl(var(--hue), 20%, 80%)}@media (min-width: 34.375em){h3 a.anchor{margin-right:calc(0em - var(--h2-margin))}}h4 a.anchor,h5 a.anchor,h6 a.anchor{padding-left:1em;color:hsl(var(--hue), 20%, 80%)}h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{color:hsl(var(--hue), 50%, 40%)}header nav{display:block}header nav ul{display:flex;flex-flow:row wrap;justify-content:center;line-height:1.0;margin:0}header nav ul li{display:inline-block;padding:0.1em 0.3em;text-align:center;flex:0 0 4em;align-self:center;white-space:nowrap}header nav ul li a{display:block;font-weight:bold;text-decoration:none}header,.divider,section>h2{border-bottom:1px solid #000}.divider,section>h2{border-top:1px solid #000}.divider{min-height:calc(2 * var(--line-height));text-align:center}.below-divider{padding-top:var(--line-height);border-bottom:1px solid black}.below-divider>p:first-child{font-size:1.25em;text-align:center;margin-top:0}footer{--footer-padding-y: calc(var(--line-height) / 2);--footer-padding-x: var(--font-size);padding:var(--footer-padding-y) var(--footer-padding-x);border-top:1px solid #000}footer>div>address{display:block}footer>div>*{text-align:center}@media (min-width: 50em){footer>div{margin:0 auto;display:flex;flex-flow:row wrap;justify-content:center;max-width:calc(2 * var(--body-width));width:calc(100vw - 2 * var(--footer-padding-x))}footer>div>address{flex:0 1 20em;align-self:center;text-align:left}footer>div>div{flex:1 1 20em;align-self:center;text-align:right}footer>div>div>p,footer>div>div>div{margin-top:0}}h2:target{animation:target-attention 0.4s 1;font-size:2.0em}@keyframes target-attention{0%{transform:scale(1.1)}100%{transform:scale(1.1)}}div:target{border:1px dashed #888}kbd kbd{padding:0.1em 0.4em;margin:0 0.1em 0.2em 0.1em;font-size:0.75em;white-space:nowrap;background-color:#ddd;color:#242;border:1px solid rgba(0,0,0,0.2);border-radius:0.2em;box-shadow:inset 0 0 1px 1px #fff,0 2px 0 rgba(0,0,0,0.3)}samp,kbd{background-color:#f3f3f2}code,samp{color:#442}kbd{margin:0 0.4em;color:#252}section li::marker{font-family:var(--sans-serif);color:hsl(var(--hue), 50%, 40%)}img{max-width:100%;height:auto;-ms-interpolation-mode:bicubic}section figcaption{font-size:0.75em;line-height:1.1;text-align:center}a{color:hsl(var(--hue), 50%, 45%);text-decoration-color:hsl(var(--hue), 20%, 80%);text-underline-offset:0.25em}a:hover{text-decoration:underline;text-decoration-color:hsl(var(--hue), 50%, 45%);background:hsla(var(--hue), 50%, 50%, 0.1)}:focus-visible{outline-color:hsl(var(--hue), 50%, 45%)}.draft{font-family:var(--serif);font-size:calc(4 * var(--font-size));letter-spacing:-0.1em;color:#eee;opacity:0.5;text-align:center;transform:rotate(-5deg);line-height:1.0;position:absolute;top:0;height:0;left:25%;width:50%;pointer-events:none}@media (min-width: 34.375em){section p,section li{hanging-punctuation:first last;text-wrap:pretty;hyphens:auto;hyphenate-limit-chars:7}}nav,.section-number,address,time{font-variant-numeric:oldstyle-nums}.w-auto,section>.w-auto{width:auto}.w-full,section>.w-full{width:100%}.w-150b,section>.w-150b{width:calc(1.5 * var(--body-width))}.select-none{user-select:none;-webkit-user-select:none}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.text-sm{font-size:0.875em}.font-sans{font-family:var(--sans-serif)}.font-serif{font-family:var(--serif)}.font-mono{font-family:var(--monospace)}.normal-nums{font-variant-numeric:normal}.oldstyle-nums{font-variant-numeric:oldstyle-nums}p,figure,ul,ol{margin:var(--line-height) 0}header>*,section>*,footer>*,main>address,.comments{margin-inline:auto}figure{text-align:center}figure pre{text-align:left}li>ul,li>ol{margin-top:0;margin-bottom:0}figure img,figure svg,figure canvas{max-width:100%}dt{font-weight:bold}pre{width:var(--body-width);max-width:100%;line-height:1.4;overflow:auto;border-block:1px solid #ccc;border-inline-width:0}pre.simple,.comments pre{overflow:auto;width:calc(var(--body-width) * 1.2);border:none;background:transparent;background-color:transparent;box-shadow:none}pre.snippet,pre.src{border-top-style:dashed;border-bottom-style:dashed}section>pre:only-child{padding-bottom:var(--font-size);border-bottom:1px solid rgba(0,0,0,0.5)}blockquote{font-style:italic;text-wrap:balance}table.standard2024{font-family:var(--sans-serif);font-size:0.875em;border:2px solid white;border-collapse:collapse;overflow-x:auto}table.standard2024 th{background-color:#e8e8e3;border:2px solid white;padding:0 0.5em}table.standard2024 td{background-color:#fff;border:1px solid #f3f3f2;border-right-color:#babaab;padding:0 0.5em}table.standard2024 thead{border-bottom:2px solid #babaab}table.standard2024 thead th{background:linear-gradient(to top, #e8e8e3, #f4f4f1, #fafaf9)}table.standard{font-family:var(--sans-serif);font-size:0.875em;border-block:2px solid hsl(var(--hue), 10%, 50%);border-collapse:collapse;overflow-x:auto;text-align:left}table.standard td,table.standard th{border-bottom:1px solid #f3f3f2;padding:0 0.5em}table.standard :is(td, th):not(:last-child){border-right:1px solid #babaab}table.standard td{background-color:hsl(var(--hue), 10%, 97%);border-bottom-color:white}table.standard thead{border-bottom:2px solid hsl(var(--hue), 10%, 50%);vertical-align:bottom}table.standard tfoot{border-top:2px solid hsl(var(--hue), 10%, 50%);vertical-align:bottom}table.standard thead th{background:linear-gradient(to top, hsl(var(--hue), 10%, 85%), hsl(var(--hue), 15%, 87%), hsl(var(--hue), 15%, 90%));border-bottom:unset}table.standard tbody th{background-color:hsl(var(--hue), 10%, 95%);border-bottom:1px solid white}table.standard tr:hover :is(td, th){background-color:hsl(var(--hue), 25%, 93%)}aside,p.note,div.note>p{width:calc(--body-width - 2em);padding:1em;background:#eee;border:1px solid #ddd;box-shadow:0 8px 6px -6px rgba(0,0,0,0.4)}tt,code{padding:0 2px}pre :is(tt, code){padding:unset}main>address,section>address,section>time{display:block;width:var(--body-width);max-width:100%;font-family:var(--sans-serif);text-align:right}form{margin:0}input{accent-color:hsl(var(--hue), 50%, 50%)}input[type="text"]{max-width:100%;border:1px solid rgba(0,0,0,0.7);background-color:#f8f8f4;color:#000;text-align:center;font-weight:bold}input[type="text"]:focus{background-color:#fffff4}input::placeholder{color:#aaa}input[type="search"][name="q"]{box-shadow:inset 0 0.1em 0.3em 0 rgba(0,0,0,0.5);border-radius:0.6em;padding:0.3em 0.6em;border-width:0}button{touch-action:manipulation;cursor:pointer;user-select:none}.TODO{color:#bf4040;background:#e8e3e3;border:1px solid #bf4040;margin-left:0.5ex}.DONE{color:#4040bf;background:#e3e3e8;border:1px solid #4040bf}.src .constant{font-style:oblique}.src .comment-delimiter,.src .nxml-comment-delimiter{color:#4488ff}.src .comment,.src .nxml-comment-content{color:#006699}.src .builtin{color:#508b20}.src .warning{color:#cc0000}.src .function-name{color:#268bd2;font-weight:bold}.src .variable-name{font-weight:bold;color:#5c3d5c}.src .type{color:#6c71c4}.src .constant-face{color:#d33682}.src .doc{color:#666666;background-color:#e2e6e8}.src .string{color:#888888}.src .preprocessor{color:#859900}.src .negation-char,.src .sh-escaped-newline{color:#ff0000}.src .todo{color:#ffffff;background:#dc322f}.src .note{color:#ffffff;background:#2aa198}.src .hack{color:#ffffff;background:#859900}.src .operator{color:black;font-weight:bold}.src .paren{color:#a0a090;font-weight:bold}.src .keyword{color:#679;font-weight:bold}.src .minor-control-construct{color:#406abf;font-weight:bold}.src .major-control-construct{color:#bf4040}.src-cpp .constant{color:#999999}.src-emacs-lisp .paren{color:#c9c9c4}.src-sh .string,.src-sh .comment{color:inherit}.src-python .highlight-indentation{border-right:2px solid #eeeeee}.src-css .css-selector{color:#478547}.src-css .css-property{color:#406abf}.src-xml .nxml-element-prefix{color:#bf40bf}.src-xml .nxml-element-local-name{color:#406abf;font-weight:normal}.src-xml .nxml-attribute-local-name{color:#478547}.src-xml .nxml-element-colon{color:#a3adc2}.src-xml .nxml-tag-delimiter,.src-xml .nxml-tag-slash{color:#9cabc9;font-weight:bold}table.standard td.left,table.standard th.left{text-align:left}table.standard td.center,table.standard th.center{text-align:center}table.standard td.right,table.standard th.right{text-align:right}@media screen{*[class^="section-number"]{color:hsl(var(--hue), 20%, 50%)}h2 .section-number{display:inline-block;margin-left:0;padding-left:0.5em;text-align:center;width:var(--h2-margin);color:hsl(var(--hue), 50%, 80%)}h2 .section-number+span{margin-left:0}h3>.section-number{float:left;text-align:center;width:2.7em;margin-right:0.3em;color:hsl(var(--hue), 25%, 90%);background:hsl(var(--hue), 50%, 50%);background-image:var(--bgurl), var(--bgurl);background-position:0 0, 16px 16px;border-radius:0.25em;text-shadow:0px 2px 5px rgba(0,0,0,0.8)}}@media screen and (min-width: 34.375em){h3>.section-number{height:2em;margin-left:-3em;margin-top:-0.3em;padding-top:0.3em;border-block:1px solid black}h3>a.anchor{background:url(https://www.redblobgames.com/img/svg-blob-mini.svg) no-repeat center center;background-size:2cap 2cap}h3:hover>a.anchor{background:none}}.print-endnote{display:none}@media print{@page{margin:0.5in}body{--font-size: 14pt;--serif: "Book Antiqua", "Times New Roman", serif;--sans-serif: "Helvetica", sans-serif;--monospace: "Courier", "Courier New", monospace}h2,h3{page-break-after:avoid}figure{page-break-inside:avoid}p,li{orphans:5;widows:5}section p a,section li a{text-decoration:underline;text-decoration-color:#ddd}header nav,.comments{display:none}.print-endnote{display:unset}.print-endnote li{list-style-type:none;word-break:break-all}.print-endnote img{width:2.5em;vertical-align:bottom}}
+
+@media print{header::before{position:absolute;right:0;top:0;content:url(https://chart.apis.google.com/chart?chs=120x120&cht=qr&chl=https%3A%2F%2Fwww.redblobgames.com%2Fpathfinding%2Ftower-defense%2F);}}
+	  
+    figure canvas { width: 100%; }
+
+    /* for sliders */
+    button { font-size: large; }
+    input[type=range] { width: 95%; }
+
+    /* for inline legend */
+    .square        { display: inline-block; width: 1.4em; height: 1.4em; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5); }
+    .frontier-bg   { border: 3px solid hsl(220, 50%, 50%); background: hsl(30, 20%, 75%); color: white; }
+    .unexplored-bg { background: hsl(0, 10%, 85%);   color: black; }
+    .reached-bg    { background: hsl(30, 20%, 75%);  color: black; }
+    .current-bg    { border: 3px solid hsl(220, 50%, 50%); background: hsl(220, 60%, 60%); color: white; }
+    .neighbors-bg  { border: 3px dotted hsl(150, 40%, 40%); background: radial-gradient(circle, hsla(150, 50%, 45%, 0.0) 0%, hsla(150, 50%, 45%, 0.5) 100%); color: white; box-shadow: unset; }
+    .neighbors-bg.reached-bg { background: radial-gradient(circle, hsla(30, 20%, 75%) 0%, hsla(150, 50%, 45%, 0.5) 100%); }
+    .next-bg       { border: 3px dotted hsl(150, 40%, 40%); background: hsl(150, 50%, 50%); color: white; }
+
+    /* for code samples and also mentions of these words in the text of the page */
+    pre em { font-weight: inherit; font-style: inherit; background-color: #ffc; padding: 2px 0; }
+    .frontier, .currentfrontier { color: hsl(220, 50%, 50%); }
+    .current { color: hsl(220, 60%, 60%); }
+    .start { color: hsl(0, 50%, 50%); }
+    .reached, .came_from { color: hsl(30, 40%, 40%); }
+    .distance { color: hsl(340, 30%, 40%); }
+    .neighbors { color: hsl(150, 40%, 30%); }
+    .nextfrontier { color: hsl(150, 50%, 30%); }
+    .next { color: hsl(150, 50%, 40%); }
+    .def, .return, .while, .if, .for, .break,
+    .frontier, .start, .current, .reached, .came_from, .distance, .neighbors, .next { font-weight: bold; }
+
+    /* Tailwind-compatible styles I don't want to include in my global stylesheet */
+    .whitespace-no-wrap { white-space: nowrap; }
+      /* for inline legend */
+      svg.icon { width: 1em; height: 1em; overflow: visible; }
+  </style>
+<script>function $l(s,e,d){d=document;if(d.location.hostname!='localhost'){e=d.createElement('script');e.async=true;e.src=s;e.dataset.timestamp=+new Date();d.body.appendChild(e)}}</script>
+</head>
+<body class="gameprog">
+<header><h1>Flow Field Pathfinding for Tower Defense</h1>
+<div class="subheading">
+                 from <a href="https://www.redblobgames.com/">Red Blob Games</a>
+</div>
+<nav><search><form action="https://www.google.com/search">
+<ul> <li><a href="https://www.redblobgames.com/">Home</a></li> <li><a href="https://www.redblobgames.com/blog/">Blog</a></li> <li><a href="https://pinboard.in/u:amitp/t:gamedev/">Links</a></li> <li><a href="https://bsky.app/profile/redblobgames.com">Bluesky</a></li> <li><a rel="me" href="http://www-cs-students.stanford.edu/~amitp/">About</a></li> <li> </li> <li><input type="search" name="q" placeholder="Search" size="8"></li>
+</ul>
+<input type="hidden" name="hq" value="site:www.redblobgames.com OR site:theory.stanford.edu/~amitp/ OR site:www-cs-students.stanford.edu/~amitp/ OR site:amitp.blogspot.com OR site:simblob.blogspot.com">
+</form></search></nav></header><main><address>Feb 2014, updated Aug 2014, Nov 2018, Jul 2020</address>
+<section><p>In a Tower Defense game, there are many enemies that are all headed to the same place. In many Tower Defense games, there is a predetermined path, or a small number of paths. In some, such as the classic <a href="http://armorgames.com/play/1128/desktop-tower-defense-15">Desktop Tower Defense</a><sup class="print-endnote">[1]</sup>, you can place towers anywhere, and they act as obstacles that affect the paths taken by enemies. <strong>Try it out</strong>, and <strong>click on the map</strong> to toggle walls. <button id="unit-flow-button"></button></p>
+<figure id="diagram-units"></figure><p>To solve this problem we need either a <em>vector field</em> (also called a flow field) or a <em>distance field</em> (also called a Dijkstra Map). Enemies will move in the direction that gets them closer to the player:</p>
+<figure id="diagram-concepts"></figure><p>How would we implement this?</p>
+<p>Graph search algorithms like A* are often used to find the shortest path from one point to another point. You can use this for each enemy to find a path to the goal. There are lots of different graph search algorithms we could use in this type of game. These are the classics:</p>
+<ol>
+<li>
+<strong>One source, one destination</strong>: <ul>
+<li>
+<a href="https://en.wikipedia.org/wiki/Best_first_search">Greedy Best First Search</a><sup class="print-endnote">[2]</sup>
+</li>
+<li>
+<a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A*</a><sup class="print-endnote">[3]</sup> - commonly used in games</li>
+</ul>
+</li>
+<li>
+<strong>One source, all destinations</strong>, or <strong>all sources, one destination</strong>: <ul>
+<li>
+<a href="https://en.wikipedia.org/wiki/Breadth_first_search">Breadth First Search</a><sup class="print-endnote">[4]</sup> - unweighted edges</li>
+<li>
+<a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra’s Algorithm</a><sup class="print-endnote">[5]</sup> - adds weights to edges</li>
+<li>
+<a href="https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm">Bellman-Ford</a><sup class="print-endnote">[6]</sup> - supports negative weights</li>
+</ul>
+</li>
+<li>
+<strong>All sources, all destinations</strong>: <ul>
+<li>
+<a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm">Floyd-Warshall</a><sup class="print-endnote">[7]</sup>
+</li>
+<li>
+<a href="https://en.wikipedia.org/wiki/Johnson%27s_algorithm">Johnson’s Algorithm</a><sup class="print-endnote">[8]</sup>
+</li>
+</ul>
+</li>
+</ol>
+<p>A game like Desktop Tower Defense has lots of enemy positions (sources) and one destination for all of them. This puts it into the <strong>all sources, one destination</strong> category. Instead of running A* once per enemy, we can run an algorithm once, and it will calculate the path for all enemies. Even better, it will calculate the shortest path from every location, so as enemies get jostled around or new enemies created, their paths have already been computed. This is sometimes called a <strong>flow field</strong>.</p>
+<p>Let’s explore <strong>Breadth First Search</strong>, which is sometimes called “flood fill” (FIFO variant). Although graph search works on any <a href="https://en.wikipedia.org/wiki/Graph_(mathematics)">node-and-edge graph</a><sup class="print-endnote">[9]</sup>, I’m using a square grid for these examples. Grids are a special case of graphs. <a href="../grids/graphs.html">Each grid tile is a graph node, and the borders between grid tiles are the graph edges</a>. I’ll explore non-grid graphs in <a href="../grids/algorithms.html">another article</a>.</p>
+<p>Breadth First Search starts with one node and repeatedly visits neighbors. The key concept is a “frontier”, the boundary between the explored and unexplored areas. The frontier expands outwards from the original node until it has explored the entire graph.</p>
+<p>The <strong class="frontier">frontier</strong> queue <span class="square frontier-bg"> </span>  <span class="square frontier-bg"> </span>  <span class="square frontier-bg"> </span>  is a list/array of graph nodes (grid tiles) that still need to be analyzed. It starts out containing only a single element, the <svg class="icon" alt="(blob icon)" viewBox="-1050 -1200 2100 2100" xml:base="../_icon-blob.svg"><use xlink:href="#blob-icon"></use></svg><strong class="start">start</strong> node. The <strong class="reached">reached</strong> flag on each node keeps track of whether we’ve seen it yet. Nodes start out as not reached <span class="square unexplored-bg"> </span> except the <span class="start">start</span> node starts out as reached <span class="square reached-bg"> </span>. <strong>Use the slider</strong> to see how the frontier expands:</p>
+<figure id="diagram-frontier"></figure><p>How does the algorithm work? At every step, take a single element out of <span class="frontier">frontier</span>  <span class="square frontier-bg"> </span> and call it <strong class="current">current</strong>  <span class="square current-bg"> </span> . Then find <span class="current">current</span>’s <strong class="neighbors">neighbors</strong>. For each neighbor, if it hasn’t been <span class="reached">reached</span> yet, add it to both <span class="frontier">frontier</span> and <span class="reached">reached</span>. Here’s some Python code:</p>
+<pre>frontier = Queue()
+frontier.put(start <svg class="icon" alt="(blob icon)" viewBox="-1050 -1200 2100 2100" xml:base="../_icon-blob.svg"><use xlink:href="#blob-icon"></use></svg>)
+reached = dict()
+reached[start] = True
+
+while not frontier.empty():
+   current = frontier.get()
+   for next in graph.neighbors(current):
+      if next not in reached:
+         frontier.put(next)
+         reached[next] = True</pre>
+<p>Now that you’ve seen the code, <strong>try stepping through the animation</strong> below. Pay attention to the <span class="frontier">frontier</span> queue, the <span class="current">current</span> node, and the set of <span class="neighbors">neighbor</span> nodes. At each step, an element of the frontier becomes the current node <span class="whitespace-no-wrap"><span class="square frontier-bg"> </span> → <span class="square current-bg"> </span></span> , unreached neighbors are added to the frontier <span class="whitespace-no-wrap"><span class="square neighbors-bg"> </span> → <span class="square frontier-bg"> </span></span> , and reached neighbors are discarded  <span class="whitespace-no-wrap"><span class="square reached-bg neighbors-bg"> </span> → X</span>.</p>
+<figure id="diagram-expansion"></figure><p>It’s a relatively simple algorithm, and useful for all sorts of things, <a href="https://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized">including game AI</a><sup class="print-endnote">[10]</sup>. There are three main ways I use it:</p>
+<ol>
+<li>
+<strong>Mark</strong> all reachable nodes. This is useful if your map isn’t completely connected, and you want to know what’s reachable. That’s what we did above, with the <strong class="reached">reached</strong> field.</li>
+<li>Find <strong>paths</strong> from one node to all other nodes, or from all nodes to one node. This is what I used for the animated demo at the top of the page.</li>
+<li>Measure <strong>distances</strong> from one node to all other nodes. This is useful to know what’s in a given walking distance of a monster.</li>
+</ol>
+<p>If you are generating paths, you will want to know which direction to move from every node. When you visit a neighbor, remember where you came from. Let’s rename the <span class="reached">reached</span> table to <span class="came_from">came_from</span> and use it to keep track of the previous location:</p>
+<pre>frontier = Queue()
+frontier.put(start <svg class="icon" alt="(blob icon)" viewBox="-1050 -1200 2100 2100" xml:base="../_icon-blob.svg"><use xlink:href="#blob-icon"></use></svg>)
+<em>came_from</em> = dict()
+<em>came_from</em>[start] = <em>None</em>
+
+while not frontier.empty():
+   current = frontier.get()
+   for next in graph.neighbors(current):
+      if next not in <em>came_from</em>:
+         frontier.put(next)
+         <em>came_from</em>[next] = <em>current</em></pre>
+<p>Let’s see what this vector field looks like:</p>
+<figure id="diagram-parents"></figure><p>If you need distances, you can start with a counter set to 0 at the start node, and increment it each time you visit a neighbor. Let rename the <span class="reached">reached</span> table into <span class="distance">distance</span> and use it to keep a counter:</p>
+<pre>frontier = Queue()
+frontier.put(start <svg class="icon" alt="(blob icon)" viewBox="-1050 -1200 2100 2100" xml:base="../_icon-blob.svg"><use xlink:href="#blob-icon"></use></svg>)
+<em>distance</em> = dict()
+<em>distance</em>[start] = <em>0</em>
+
+while not frontier.empty():
+   current = frontier.get()
+   for next in graph.neighbors(current):
+      if next not in <em>distance</em>:
+         frontier.put(next)
+         <em>distance</em>[next] = <em>1 + distance[current]</em></pre>
+<p>Let’s see what this distance field looks like:</p>
+<figure id="diagram-distances"></figure><p>You can have both variables if you want to compute both paths and distances. The two are related. The vector field (“flow field”) is the negative <a href="https://en.wikipedia.org/wiki/Gradient">gradient</a><sup class="print-endnote">[11]</sup> (∇) of the distance field (“Dijkstra Map”), and you can calculate the vector by looking at which direction makes the distance decrease.</p>
+<p>So that’s Breadth First Search. For Tower Defense style games, I’ve used it to find paths from all locations to a given location, instead of using A* repeatedly to separately find a path for enemy. I’ve used it to to find all locations within a certain walking distance of a monster. I’ve also used it for procedural map generation. Minecraft <a href="https://tomcc.github.io/2014/08/31/visibility-1.html">uses it for visibility culling</a><sup class="print-endnote">[12]</sup>. For flow field pathfinding, where units aren’t in the center of a grid cell, you can <em>interpolate</em> the flow arrows in each cell. Breadth First Search is a nice algorithm to know.</p>
+<p>Next steps:</p>
+<ul>
+<li>I have <a href="../a-star/implementation.html">implementation notes</a> with Python and C++ code.</li>
+<li>If you want paths <em>from</em> a single location instead of <em>to</em> a single location, reverse the <code>came_from</code> pointers when following paths.</li>
+<li>If you want paths to one of <em>several</em> locations instead of a single location, you can add edges to your graphs from each of your destinations to an extra destination node. The extra node won’t show up on the grid, but in the graph it will represent the destination. I have some examples of this <a href="/pathfinding/distance-to-any/">here</a>.</li>
+<li>Early exit: if you’re looking for a path to/from a single location, you can stop searching as soon as you find that location. I describe this in <a href="../a-star/introduction.html">the A* article</a> and also <a href="../early-exit/">on its own page</a>.</li>
+<li>Weighted edges: if you need varying movement costs, Breadth First Search becomes Dijkstra’s Algorithm. I describe this in <a href="../a-star/introduction.html">the A* article</a>.</li>
+<li>Heuristic: if you add a way to guide the search towards the goal, <em>Breadth</em> First Search becomes <em>Best</em> First Search. I describe this in <a href="../a-star/introduction.html">the A* article</a>.</li>
+<li>If you start with Breadth First Search and <strong>add early exit, weighted edges, and a heuristic, you get A*</strong>. As you might guess, I describe this in <a href="../a-star/introduction.html">the A* article</a>.</li>
+</ul></section></main><div class="below-divider">
+<p>Email me <a class="email" rel="me" href="mailto:redblobgames@gmail.com">redblobgames@gmail.com</a>, or comment here:</p>
+<div class="print-endnote">
+<h3>Links</h3>
+<ol>
+<li>[1]: http://armorgames.com/play/1128/desktop-tower-defense-15</li>
+<li>[2]: https://en.wikipedia.org/wiki/Best_first_search</li>
+<li>[3]: https://en.wikipedia.org/wiki/A*_search_algorithm</li>
+<li>[4]: https://en.wikipedia.org/wiki/Breadth_first_search</li>
+<li>[5]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm</li>
+<li>[6]: https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm</li>
+<li>[7]: https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm</li>
+<li>[8]: https://en.wikipedia.org/wiki/Johnson%27s_algorithm</li>
+<li>[9]: https://en.wikipedia.org/wiki/Graph_(mathematics)</li>
+<li>[10]: https://www.roguebasin.com/index.php?title=Dijkstra_Maps_Visualized</li>
+<li>[11]: https://en.wikipedia.org/wiki/Gradient</li>
+<li>[12]: https://tomcc.github.io/2014/08/31/visibility-1.html</li>
+</ol>
+</div>
+<div class="comments" role="complementary">
+<div id="disqus_thread"><button style="padding:1em;width:100%" onclick="$disqus()">Load comments</button></div>
+<script>
+function disqus_config(){this.page.url="http://www.redblobgames.com/pathfinding/tower-defense/"}
+function $disqus(){$disqus=()=>{};$l("https://redblobgames.disqus.com/embed.js")}
+if(document.location.hash.match(/#comment/))setTimeout($disqus,0)
+else {new IntersectionObserver(e=>{if(e[0].isIntersecting)$disqus()}).observe(document.getElementById('disqus_thread'))}</script><noscript><a href="https://redblobgames.disqus.com/?url=https://www.redblobgames.com/pathfinding/tower-defense/">View the discussion thread.</a></noscript>
+</div>
+</div>
+<footer><div>
+<address>
+		  Copyright © <time>2025</time>
+                       <a rel="author home copyright" href="https://www.redblobgames.com/">Red Blob Games</a><br><a href="https://www.redblobgames.com/blog/posts.xml"><svg viewBox="0 0 30 30" height="0.8em"><rect width="30" height="30" rx="5" fill="orange"></rect><circle cx="7" cy="23" r="4" fill="white"></circle><path d="M 5,5 A 20,20,0,0,1,25,25 M 5,13 A 12,12,0,0,1,17,25" fill="none" stroke="white" stroke-width="4" stroke-linecap="square"></path></svg>RSS Feed</a>
+</address>
+<div>
+	       <svg width="0" height="0" xml:base="../_icon-def-blob.svg"><defs><polygon id="blob-icon" points="1100 -55 1189 -174 1243 -306 1241 -439 1180 -554 1070 -639 931 -692 787 -718 660 -735 562 -763 490 -819 434 -909 378 -1028 305 -1156 209 -1268 91 -1339 -37 -1352 -162 -1304 -268 -1206 -350 -1081 -412 -956 -466 -852 -529 -782 -616 -744 -731 -725 -870 -705 -1014 -665 -1139 -593 -1223 -489 -1249 -362 -1217 -228 -1140 -102 -1040 5 -945 96 -877 176 -847 262 -851 365 -874 491 -893 636 -886 784 -838 915 -746 1008 -621 1049 -478 1039 -337 990 -211 925 -104 869 -11 845 80 860 183 909 304 974 442 1029 586 1051 718 1023 819 942 878 819 895 673 880 526 856 394 845 285 866 197 925 116 1015 29" fill="hsl(0, 50%, 50%)"></polygon></defs></svg><script type="module">
+      import {highlight_words} from '../code-highlighting.js';
+
+      for (let element of document.querySelectorAll("pre")) {
+          element.innerHTML = highlight_words(element.innerHTML, [
+              'frontier', 'current', 'currentfrontier', 'nextfrontier', 'start', 'reached', 'neighbors', 'next', 'distance', 'came_from',
+              'def', 'return', 'while', 'for', 'if', 'break']);
+      }
+    </script> Created 6 Feb 2014;  <!-- hhmts start -->Last modified: 18 Mar 2024<!-- hhmts end -->
+</div>
+</div></footer>
+</body>
+</html>
