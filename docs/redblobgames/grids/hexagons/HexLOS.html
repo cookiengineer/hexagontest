@@ -1,0 +1,495 @@
+<!DOCTYPE html><html lang="en">
+<head>
+
+<meta charset="utf-8">
+<title>Clark Verbrugge’s Hex Grids</title>
+<link rel="canonical" href="http://www-cs-students.stanford.edu/~amitp/Articles/HexLOS.html">
+<!--DO NOT EDIT: generated from Articles/HexLOS.bxml-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/~amitp/favicon.ico">
+<link rel="apple-touch-icon" href="/~amitp/red_blob.gif">
+<link rel="preload" as="image" href="/~amitp/transparent-blob.png">
+<link rel="alternate" type="application/atom+xml" title="Blog posts" href="https://www.redblobgames.com/blog/posts.xml">
+<meta name="theme-color" content="hsl(0,50%,45%)">
+<style>:root{--hue: 0;--bgurl: url("/~amitp/transparent-blob.png")}/*! CSS Copyright 2007-2023 by amitp@cs.stanford.edu (Amit J. Patel)  *//*! I don't mind if you copy my stylesheet.  However, I'd appreciate it if you gave me credit. */body{--serif: "Iowan Old Style",Cambria,Georgia,serif;--sans-serif: "Avenir Next",Candara,Ubuntu,"Fira Sans",system-ui,"Segoe UI",sans-serif;--monospace: "Roboto Mono","Cascadia Code",Consolas,monospace,"Segoe UI Symbol",Symbol;--body-width: calc(100vw - 2.25rem);--font-size: calc(0.625rem + 1vw);--line-height: calc(1.5 * var(--font-size));font-family:var(--sans-serif);font-size:var(--font-size);line-height:1.5em;min-height:95%}@media (min-width: 34.375em){body{--body-width: min(20.6rem + 33vw, 41.25rem);--font-size: calc(var(--body-width) / 33)}}main{font-family:var(--serif)}h1,h2,h3,h4,h5,h6,figcaption,.sans-serif{font-family:var(--sans-serif);text-wrap:balance}tt,code,kbd,samp,pre{font-family:var(--monospace);font-size:0.8em}pre :is(tt, code, kbd, samp){font-size:unset}#table-of-contents{background-color:#fff;padding-left:1em;width:18em;float:right}#table-of-contents:after{clear:right}nav,#table-of-contents{font-family:var(--sans-serif);font-size:calc(var(--font-size) / 1.25)}nav a,#table-of-contents a{text-decoration-color:hsl(var(--hue), 20%, 90%)}@media screen{header,section>h2{text-shadow:0px 2px 5px rgba(0,0,0,0.8);text-rendering:optimizeLegibility}}h1{font-size:2.0em;margin:0;line-height:calc(1.5 * var(--line-height))}h1 .subheading{font-size:0.5em;line-height:var(--line-height)}sup,sub{position:relative;vertical-align:baseline;font-size:0.75em;line-height:0;padding-left:0.125em}sup{top:-0.5em}sub{bottom:-0.25em}details summary{cursor:pointer}*{box-sizing:border-box}html,body{margin:0;padding:0}html{background-color:#e4e4e0;color:#000}body{background-color:#fff;color:#333}header{display:block;text-align:center}header>h1{padding-top:var(--line-height)}@media screen{header,footer,.divider,section>h2{color:#fff;background-color:hsl(var(--hue), 50%, 45%);background-image:var(--bgurl), var(--bgurl), linear-gradient(180deg, hsl(var(--hue), 50%, 45%) 0%, hsl(var(--hue), 75%, 30%) 100%);background-position:0 0, 16px 16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}header a,footer a,.divider a,section>h2 a{color:hsl(var(--hue), 40%, 90%);background:unset;text-decoration:none}header a:hover,footer a:hover,.divider a:hover,section>h2 a:hover{background-color:rgba(0,0,0,0.5);text-decoration:underline}}footer a,.divider a{text-decoration:underline}main{margin-inline:0;padding-inline:0}section{margin:var(--line-height) 0}section>*{width:var(--body-width);max-width:100%}.comments{width:calc(1.5 * var(--body-width));max-width:100%}@media screen{.comments,.below-divider{background-color:#e6e6e5}}.comments{padding-bottom:1.25em;font-size:1.0em}.comments .comment-author{text-shadow:1px 1px 3px #fff}section>h2{--h2-margin: 3em;margin:var(--line-height) auto;padding:calc(var(--line-height) / 2 - 1px) 0;font-size:1.25em;width:calc(2 * var(--h2-margin) + var(--body-width));max-width:100%}section>h2>span{display:inline-block;margin-left:var(--h2-margin)}section>h2 a.anchor{float:right;width:calc(var(--h2-margin));text-align:center;color:hsl(var(--hue), 50%, 45%)}section>h2:hover a.anchor{color:hsl(var(--hue), 20%, 80%)}h3{--h2-margin: 3em;margin:var(--line-height) auto;font-size:1.125em}h3 a.anchor{float:right;width:calc(var(--h2-margin));text-align:center;color:hsl(var(--hue), 20%, 80%)}@media (min-width: 34.375em){h3 a.anchor{margin-right:calc(0em - var(--h2-margin))}}h4 a.anchor,h5 a.anchor,h6 a.anchor{padding-left:1em;color:hsl(var(--hue), 20%, 80%)}h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{color:hsl(var(--hue), 50%, 40%)}header nav{display:block}header nav ul{display:flex;flex-flow:row wrap;justify-content:center;line-height:1.0;margin:0}header nav ul li{display:inline-block;padding:0.1em 0.3em;text-align:center;flex:0 0 4em;align-self:center;white-space:nowrap}header nav ul li a{display:block;font-weight:bold;text-decoration:none}header,.divider,section>h2{border-bottom:1px solid #000}.divider,section>h2{border-top:1px solid #000}.divider{min-height:calc(2 * var(--line-height));text-align:center}.below-divider{padding-top:var(--line-height);border-bottom:1px solid black}.below-divider>p:first-child{font-size:1.25em;text-align:center;margin-top:0}footer{--footer-padding-y: calc(var(--line-height) / 2);--footer-padding-x: var(--font-size);padding:var(--footer-padding-y) var(--footer-padding-x);border-top:1px solid #000}footer>div>address{display:block}footer>div>*{text-align:center}@media (min-width: 50em){footer>div{margin:0 auto;display:flex;flex-flow:row wrap;justify-content:center;max-width:calc(2 * var(--body-width));width:calc(100vw - 2 * var(--footer-padding-x))}footer>div>address{flex:0 1 20em;align-self:center;text-align:left}footer>div>div{flex:1 1 20em;align-self:center;text-align:right}footer>div>div>p,footer>div>div>div{margin-top:0}}h2:target{animation:target-attention 0.4s 1;font-size:2.0em}@keyframes target-attention{0%{transform:scale(1.1)}100%{transform:scale(1.1)}}div:target{border:1px dashed #888}kbd kbd{padding:0.1em 0.4em;margin:0 0.1em 0.2em 0.1em;font-size:0.75em;white-space:nowrap;background-color:#ddd;color:#242;border:1px solid rgba(0,0,0,0.2);border-radius:0.2em;box-shadow:inset 0 0 1px 1px #fff,0 2px 0 rgba(0,0,0,0.3)}samp,kbd{background-color:#f3f3f2}code,samp{color:#442}kbd{margin:0 0.4em;color:#252}section li::marker{font-family:var(--sans-serif);color:hsl(var(--hue), 50%, 40%)}img{max-width:100%;height:auto;-ms-interpolation-mode:bicubic}section figcaption{font-size:0.75em;line-height:1.1;text-align:center}a{color:hsl(var(--hue), 50%, 45%);text-decoration-color:hsl(var(--hue), 20%, 80%);text-underline-offset:0.25em}a:hover{text-decoration:underline;text-decoration-color:hsl(var(--hue), 50%, 45%);background:hsla(var(--hue), 50%, 50%, 0.1)}:focus-visible{outline-color:hsl(var(--hue), 50%, 45%)}.draft{font-family:var(--serif);font-size:calc(4 * var(--font-size));letter-spacing:-0.1em;color:#eee;opacity:0.5;text-align:center;transform:rotate(-5deg);line-height:1.0;position:absolute;top:0;height:0;left:25%;width:50%;pointer-events:none}@media (min-width: 34.375em){section p,section li{hanging-punctuation:first last;text-wrap:pretty;hyphens:auto;hyphenate-limit-chars:7}}nav,.section-number,address,time{font-variant-numeric:oldstyle-nums}.w-auto,section>.w-auto{width:auto}.w-full,section>.w-full{width:100%}.w-150b,section>.w-150b{width:calc(1.5 * var(--body-width))}.select-none{user-select:none;-webkit-user-select:none}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.text-sm{font-size:0.875em}.font-sans{font-family:var(--sans-serif)}.font-serif{font-family:var(--serif)}.font-mono{font-family:var(--monospace)}.normal-nums{font-variant-numeric:normal}.oldstyle-nums{font-variant-numeric:oldstyle-nums}p,figure,ul,ol{margin:var(--line-height) 0}header>*,section>*,footer>*,main>address,.comments{margin-inline:auto}figure{text-align:center}figure pre{text-align:left}li>ul,li>ol{margin-top:0;margin-bottom:0}figure img,figure svg,figure canvas{max-width:100%}dt{font-weight:bold}pre{width:var(--body-width);max-width:100%;line-height:1.4;overflow:auto;border-block:1px solid #ccc;border-inline-width:0}pre.simple,.comments pre{overflow:auto;width:calc(var(--body-width) * 1.2);border:none;background:transparent;background-color:transparent;box-shadow:none}pre.snippet,pre.src{border-top-style:dashed;border-bottom-style:dashed}section>pre:only-child{padding-bottom:var(--font-size);border-bottom:1px solid rgba(0,0,0,0.5)}blockquote{font-style:italic;text-wrap:balance}table.standard2024{font-family:var(--sans-serif);font-size:0.875em;border:2px solid white;border-collapse:collapse;overflow-x:auto}table.standard2024 th{background-color:#e8e8e3;border:2px solid white;padding:0 0.5em}table.standard2024 td{background-color:#fff;border:1px solid #f3f3f2;border-right-color:#babaab;padding:0 0.5em}table.standard2024 thead{border-bottom:2px solid #babaab}table.standard2024 thead th{background:linear-gradient(to top, #e8e8e3, #f4f4f1, #fafaf9)}table.standard{font-family:var(--sans-serif);font-size:0.875em;border-block:2px solid hsl(var(--hue), 10%, 50%);border-collapse:collapse;overflow-x:auto;text-align:left}table.standard td,table.standard th{border-bottom:1px solid #f3f3f2;padding:0 0.5em}table.standard :is(td, th):not(:last-child){border-right:1px solid #babaab}table.standard td{background-color:hsl(var(--hue), 10%, 97%);border-bottom-color:white}table.standard thead{border-bottom:2px solid hsl(var(--hue), 10%, 50%);vertical-align:bottom}table.standard tfoot{border-top:2px solid hsl(var(--hue), 10%, 50%);vertical-align:bottom}table.standard thead th{background:linear-gradient(to top, hsl(var(--hue), 10%, 85%), hsl(var(--hue), 15%, 87%), hsl(var(--hue), 15%, 90%));border-bottom:unset}table.standard tbody th{background-color:hsl(var(--hue), 10%, 95%);border-bottom:1px solid white}table.standard tr:hover :is(td, th){background-color:hsl(var(--hue), 25%, 93%)}aside,p.note,div.note>p{width:calc(--body-width - 2em);padding:1em;background:#eee;border:1px solid #ddd;box-shadow:0 8px 6px -6px rgba(0,0,0,0.4)}tt,code{padding:0 2px}pre :is(tt, code){padding:unset}main>address,section>address,section>time{display:block;width:var(--body-width);max-width:100%;font-family:var(--sans-serif);text-align:right}form{margin:0}input{accent-color:hsl(var(--hue), 50%, 50%)}input[type="text"]{max-width:100%;border:1px solid rgba(0,0,0,0.7);background-color:#f8f8f4;color:#000;text-align:center;font-weight:bold}input[type="text"]:focus{background-color:#fffff4}input::placeholder{color:#aaa}input[type="search"][name="q"]{box-shadow:inset 0 0.1em 0.3em 0 rgba(0,0,0,0.5);border-radius:0.6em;padding:0.3em 0.6em;border-width:0}button{touch-action:manipulation;cursor:pointer;user-select:none}.TODO{color:#bf4040;background:#e8e3e3;border:1px solid #bf4040;margin-left:0.5ex}.DONE{color:#4040bf;background:#e3e3e8;border:1px solid #4040bf}.src .constant{font-style:oblique}.src .comment-delimiter,.src .nxml-comment-delimiter{color:#4488ff}.src .comment,.src .nxml-comment-content{color:#006699}.src .builtin{color:#508b20}.src .warning{color:#cc0000}.src .function-name{color:#268bd2;font-weight:bold}.src .variable-name{font-weight:bold;color:#5c3d5c}.src .type{color:#6c71c4}.src .constant-face{color:#d33682}.src .doc{color:#666666;background-color:#e2e6e8}.src .string{color:#888888}.src .preprocessor{color:#859900}.src .negation-char,.src .sh-escaped-newline{color:#ff0000}.src .todo{color:#ffffff;background:#dc322f}.src .note{color:#ffffff;background:#2aa198}.src .hack{color:#ffffff;background:#859900}.src .operator{color:black;font-weight:bold}.src .paren{color:#a0a090;font-weight:bold}.src .keyword{color:#679;font-weight:bold}.src .minor-control-construct{color:#406abf;font-weight:bold}.src .major-control-construct{color:#bf4040}.src-cpp .constant{color:#999999}.src-emacs-lisp .paren{color:#c9c9c4}.src-sh .string,.src-sh .comment{color:inherit}.src-python .highlight-indentation{border-right:2px solid #eeeeee}.src-css .css-selector{color:#478547}.src-css .css-property{color:#406abf}.src-xml .nxml-element-prefix{color:#bf40bf}.src-xml .nxml-element-local-name{color:#406abf;font-weight:normal}.src-xml .nxml-attribute-local-name{color:#478547}.src-xml .nxml-element-colon{color:#a3adc2}.src-xml .nxml-tag-delimiter,.src-xml .nxml-tag-slash{color:#9cabc9;font-weight:bold}table.standard td.left,table.standard th.left{text-align:left}table.standard td.center,table.standard th.center{text-align:center}table.standard td.right,table.standard th.right{text-align:right}@media screen{*[class^="section-number"]{color:hsl(var(--hue), 20%, 50%)}h2 .section-number{display:inline-block;margin-left:0;padding-left:0.5em;text-align:center;width:var(--h2-margin);color:hsl(var(--hue), 50%, 80%)}h2 .section-number+span{margin-left:0}h3>.section-number{float:left;text-align:center;width:2.7em;margin-right:0.3em;color:hsl(var(--hue), 25%, 90%);background:hsl(var(--hue), 50%, 50%);background-image:var(--bgurl), var(--bgurl);background-position:0 0, 16px 16px;border-radius:0.25em;text-shadow:0px 2px 5px rgba(0,0,0,0.8)}}@media screen and (min-width: 34.375em){h3>.section-number{height:2em;margin-left:-3em;margin-top:-0.3em;padding-top:0.3em;border-block:1px solid black}h3>a.anchor{background:url(https://www.redblobgames.com/img/svg-blob-mini.svg) no-repeat center center;background-size:2cap 2cap}h3:hover>a.anchor{background:none}}.print-endnote{display:none}@media print{@page{margin:0.5in}body{--font-size: 14pt;--serif: "Book Antiqua", "Times New Roman", serif;--sans-serif: "Helvetica", sans-serif;--monospace: "Courier", "Courier New", monospace}h2,h3{page-break-after:avoid}figure{page-break-inside:avoid}p,li{orphans:5;widows:5}section p a,section li a{text-decoration:underline;text-decoration-color:#ddd}header nav,.comments{display:none}.print-endnote{display:unset}.print-endnote li{list-style-type:none;word-break:break-all}.print-endnote img{width:2.5em;vertical-align:bottom}}
+
+@media print{header::before{position:absolute;right:0;top:0;content:url(https://chart.apis.google.com/chart?chs=120x120&cht=qr&chl=http%3A%2F%2Fwww-cs-students.stanford.edu%2F~amitp%2FArticles%2FHexLOS.html);}}
+	  
+    pre, pre.simple { width: 55em; max-width: 55em; }
+  </style>
+<script>function $l(s,e,d){d=document;if(d.location.hostname!='localhost'){e=d.createElement('script');e.async=true;e.src=s;e.dataset.timestamp=+new Date();d.body.appendChild(e)}}</script>
+</head>
+<body class="gameprog">
+<header><h1>Clark Verbrugge’s Hex Grids</h1>
+<nav><search><form action="https://www.google.com/search">
+<ul> <li><a href="https://www.redblobgames.com/">Home</a></li> <li><a href="https://www.redblobgames.com/blog/">Blog</a></li> <li><a href="https://pinboard.in/u:amitp/t:gamedev/">Links</a></li> <li><a href="https://bsky.app/profile/redblobgames.com">Bluesky</a></li> <li><a rel="me" href="http://www-cs-students.stanford.edu/~amitp/">About</a></li> <li> </li> <li><input type="search" name="q" placeholder="Search" size="8"></li>
+</ul>
+<input type="hidden" name="hq" value="site:www.redblobgames.com OR site:theory.stanford.edu/~amitp/ OR site:www-cs-students.stanford.edu/~amitp/ OR site:amitp.blogspot.com OR site:simblob.blogspot.com">
+</form></search></nav></header><main><section><p><strong>Update:</strong> Also see <a href="https://www.redblobgames.com/grids/hexagons/">Amit’s guide to hex grids</a><sup class="print-endnote">[1]</sup> (2013), where I expand on the ideas Clark Verbrugge posted in this article.</p>
+<p>Copyright (c) Clark Verbrugge, 1997. [clump@cs.mcgill.ca]<br> Copyright (c) Clark Verbrugge, 1996.<br> This article may be freely distributed as long as this attribution is included.</p>
+<p>This is version 3 of this document. <a href="http://www.sable.mcgill.ca/~clump/hexes.txt">The original version of the document</a><sup class="print-endnote">[2]</sup> can be found on <a href="http://www.sable.mcgill.ca/~clump/research.html">Clark’s site</a><sup class="print-endnote">[3]</sup>.</p>
+<p>Contents:</p>
+<ul>
+<li>(0) Version History</li>
+<li>(1) The Hexagonal Coordinate System</li>
+<li>(2) Distance in Hexspace</li>
+<li>(3) Line of Sight (LOS) in Hexspace</li>
+<li>(4) How to Use Rectangular Arrays of Hexagons</li>
+<li>(5) Distance and LOS in a Rectangular Array of Hexagons</li>
+<li>(6) LOS by Intersection of Hexagons with a Straight Line</li>
+<li>(7) Euclidean Field of View (FOV) on a Hexagonal Grid</li>
+<li>(8) References</li>
+</ul>
+<h2>(0) Version History</h2>
+<p>3 : Added this section, and sections on FOV and LOS by intersection<br> 2.1: Fixed bug in Floor2 and Ceil2, which gave wrong values for negative inputs. <br> 2 : Addition of material dealing with rectangular patches of hexagons.<br></p>
+<h2>(1) The Hexagonal Coordinate System</h2>
+<p>Here’s a hexagonal grid with a coordinate system mapped to square grids. Note that this is just one possible orientation of the hexagons---if you change it so hexes are adjacent horizontally instead of vertically, you get a symmetric situation (the details of which i’m sure you can work out; essentially, in (1) and (2) below, the “==” changes to a “!=”).</p>
+<pre>                      __   5
+                   __/D \__   4
+                __/  \__/  \__   3      "Y" coord
+             __/  \__/  \__/  \__   2
+          __/A \__/  \__/  \__/  \__   1
+       __/  \__/  \__/E \__/B \__/  \__   0
+      /  \__/G \__/  \__/  \__/F \__/C \
+      \__/  \__/  \__/  \__/  \__/  \__/
+         \__/  \__/  \__/  \__/  \__/   5
+            \__/  \__/  \__/  \__/   4
+               \__/  \__/  \__/    3
+                  \__/  \__/    2     "X" coord
+                     \__/    1
+                         0    
+</pre>
+<p>Unlike the obvious route, these coordinates are not orthogonal---that is, the y-coord increases to the upper-left, and the x-coord increases to the upper-right. This means “A” has coords (2,5), B is (4,2), C = (5,0), D = (5,5), E = (3,3), F = (4,1) and G = (1,4). This also means that a “square” in this coordinate system is more of a diamond shape (as you can tell from the 6x6 “square” shown above). Circles, however, are reasonably circular.</p>
+<h2>(2) Distance in Hexspace</h2>
+<p>Distance between points A and B is given by:</p>
+<pre class="simple">    dx = B.x - A.x;
+    dy = B.y - A.y;
+    if (sign(dx) == sign(dy)) {    // this is (1); see first paragraph
+        dist = max(abs(dx),abs(dy));
+    } else {
+        dist = abs(dx) + abs(dy);
+    }
+</pre>
+<p>This is a distance metric in the technical sense.</p>
+<p>So, for instance, the distance between A and B is given by:</p>
+<pre class="simple">    dx = 4 - 2 = 2;
+    dy = 2 - 5 = -3;
+    since sign(dx) != sign(dy), 
+        dist = abs(2) + abs(-3) = 5;
+</pre>
+<h2>(3) Line of Sight (LOS) in Hexspace</h2>
+<p>How do you compute line-of-sight? You use a simple modification of Bresenham’s line algorithm. Here’s a schematic version which calls the function “process()” for each coord in the line from A to B. Note that there’s a choice in the horizontal move of whether to increment x, process, then y, or to increment y, process, then x.</p>
+<pre class="simple">    // assume abs(dx) &gt;= abs(dy), it's symmetric otherwise
+    int sig,dx,dy,factor,x,y,xone,yone;
+    // this is (2); the next line changes from "==" to "!=" if 
+    // hexagons are not stacked vertically (see first paragraph)
+    sig = (sign(dx) == sign(dy));   
+    if(dx&lt;0) xone = -1; else xone = 1; // unit increments
+    if(dy&lt;0) yone = -1; else yone = 1; // unit increments
+    if (dx % 2)  {  // so dx is divisible by two
+        dx *= 2;
+        dy *= 2;
+    }  
+    dx = abs(dx); dy = abs(dy); // don't need the signs anymore
+    factor = dx/2; // should start at 0.5, which is just (dx/2)/dx
+    x = A.x; y = A.y;
+    process(x,y);
+    while (x != B.x || y != B.y) { 
+        factor += dy;
+        if (factor &gt;= dx) {
+            // Make a "diagonal move" in grid (ie vertical or horizontal)
+            factor -= dx;
+            if(sig) {  // vertical move: 2 moves in 1
+                x += xone; // add 1 in the appropriate sign
+                y += yone;   
+            } else {   // horizontal move: 2 moves in 2
+                x += xone; // doesn't matter which increases first
+                process(x,y);
+                y += yone;
+            }
+        } else {
+            x += xone;
+        }
+        process(x,y);
+    }
+</pre>
+<p>For example to get from G to D in our grid described above, we get the following sequence of steps:</p>
+<pre class="simple">    dx = 4, dy = 1, factor = 2, sig = true
+    process(1,4);
+    factor = 3, process(2,4);
+    factor = 0, process(3,5);
+    factor = 1, process(4,5);
+    factor = 2, process(5,5);
+</pre>
+<h2>(4) How to Use Rectangular Arrays of Hexagons</h2>
+<p>A “square” or “rectangle” in the above hexagon coordinates unfortunately looks like a diamond-shape. This is fine when the boundary of your domain is irrelevant. However, it does not work out so well if you want your hexagons to fit neatly on a rectangular screen, while still keeping the information in an array. Fortunately, this is a rather simple transformation. Consider the following rectangular “patch” of hexspace, with the origin (0,0) at the upper left, and suppose you want to embed this into a 9x8 array so the upper row is at y=0, with x increasing to the right, the next row down is y=1, etc. Here is the patch with the corresponding hex coordinate system shown:</p>
+<pre class="simple">                Hex X coord 
+
+    \   \   \   \   \   \   \   \   \  
+     \   \   \   \   \   \   \   \   \  
+      0   1   2   3   4   5   6   7   8     
+       / \ / \ / \ / \ / \ / \ / \ / \ / \   
+      | O | W |   | A |   |   |   |   |   |  
+H      \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+e   0   | V |   | Z |   |   |   |   |   |   |
+x  /   / \ / \ / \ / \ / \ / \ / \ / \ / \ / 
+  /   | U |   |   |   |   |   |   |   |   |  
+Y      \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+    1   | B |   |   |   |   |   |   |   |   |
+c  /   / \ / \ / \ / \ / \ / \ / \ / \ / \ / 
+o /   |   |   |   |   |   |   |   |   |   |  
+o      \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+r   2   |   |   |   |   |   |   |   |   |   |
+d  /   / \ / \ / \ / \ / \ / \ / \ / \ / \ / 
+  /   |   |   |   |   |   |   |   |   |   |  
+       \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+    3   |   |   |   |   |   |   |   |   |   |
+   /     \ / \ / \ / \ / \ / \ / \ / \ / \ / 
+  /
+
+O = upper-left origin = (0,0)
+Your hex x-coord increases to the right and up.
+Your hex y-coord increases to the right and down.
+So in hex space, 
+  U=(-1,1), V=(0,1), W=(1,1), Z=(2,3), A=(3,3), B=(-1,2) 
+and in array space,
+  U=(0,2), V=(0,1), W=(1,0), Z=(2,1), A=(3,0), B=(0,3)
+</pre>
+<p>The idea is then to store this patch of hexspace into a 9x8 array, and be able to address hexes by their array coordinates.</p>
+<p>We need two transformations:</p>
+<ol>
+<li>array -&gt; hexspace given by:<br><code>array2hex(x,y) = (x - floor(y/2),x+ceil(y/2))</code>
+</li>
+<li>hexspace -&gt; array given by:<br><code>hex2array(x,y) = (floor((x+y)/2),y-x)</code>
+</li>
+</ol>
+<p>Note that floor &amp; ceiling here will need to deal with negative as well as positive inputs. Also note that this is for a rectangular patch as depicted above—if the topmost line is to be offset to the right (instead of to the left as is shown), then floor &amp; ceil change places.</p>
+<h2>(5) Distance and LOS in a Rectangular Array of Hexagons</h2>
+<p>Given these transformations, computing distance and LOS is easy. Let A and B be a hexagons, with array coordinates given by A.ax, A.ay and B.ax, B.ay. Then distance between them is:</p>
+<pre class="simple">    // a macro to compute integer floor/ceiling when divide by two
+    #define Floor2 (X) (((X) &gt;= 0) ? ((X&gt;&gt;1) : (((X)-1)/2))
+    #define Ceil2 (X) (((X) &gt;= 0) ? (((X)+1)&gt;&gt;1) : ((X)/2))
+    // calculate hexspace coordinates of A and B
+    A.x = A.ax - Floor2(A.ay); 
+    A.y = A.ax + Ceil2(A.ay);
+    B.x = B.ax - Floor2(B.ay); 
+    B.y = B.ax + Ceil2(B.ay);
+    // calculate distance using hexcoords as per previous algorithm
+    dx = B.x - A.x;
+    dy = B.y - A.y;
+    if (sign(dx) == sign(dy)) {
+        dist = max(abs(dx),abs(dy));
+    } else {
+        dist = abs(dx) + abs(dy);
+    }
+</pre>
+<p>You might have expected the “==” to change to a “!=” given my comments about the original hexspace algorithm for computing distance. However, in this case the hex grid is not just rotated, but the axes have changed too, fortuitously resulting in an identical situation.</p>
+<p>So, the distance between the hexes mapped to array coords (3,4) and (3,0) is just:</p>
+<pre class="simple">    A.x = 3 - Floor2(4) = 1; A.y = 3 + Ceil2(4) = 5
+    B.x = 3 - Floor2(0) = 3; B.y = 3 + Ceil2(0) = 3
+    dx = 3 - 1 = 2;
+    dy = 3 - 5 = -2;
+    and thus, dist = 4;
+</pre>
+<p>and the distance between the hexes mapped to array coords (3,4) and (1,4) is just:</p>
+<pre class="simple">    A.x = 3 - Floor2(4) = 1; A.y = 3 + Ceil2(4) = 5
+    B.x = 1 - Floor2(4) = -1; B.y = 1 + Ceil2(4) = 3
+    dx = -1 - 1 = -2;
+    dy = 3 - 5 = -2;
+</pre>
+<p>and thus, dist = 2;</p>
+<p>As you might expect, line-of-sight is computed exactly in the same way as before, except we first convert our array coordinates to hex coords, and convert back before we call process. The complete algorithm would be:</p>
+<pre class="simple">    // Assume A.x, A.y, B.x and B.y have been calculated, as has dx and dy
+    // assume abs(dx) &gt;= abs(dy), it's symmetric otherwise
+    int sig,dx,dy,factor,x,y,xone,yone;
+    sig = (sign(dx) == sign(dy));   
+    if(dx&lt;0) xone = -1; else xone = 1; // unit increments
+    if(dy&lt;0) yone = -1; else yone = 1; // unit increments
+    if (dx % 2)  {  // so dx is divisible by two
+        dx *= 2;
+        dy *= 2;
+    }  
+    dx = abs(dx); dy = abs(dy); // don't need the signs anymore
+    factor = dx/2; // should start at 0.5, which is just (dx/2)/dx
+    x = A.x; y = A.y;
+    process(A.ax,A.ay);  // note process being called with array coords
+    while (x != B.x || y != B.y) { 
+        factor += dy;
+        if (factor &gt;= dx) {
+            // Make a "diagonal move" in grid (ie vertical or horizontal)
+            factor -= dx;
+            if(sig) {  // vertical move: 2 moves in 1
+                x += xone; // add 1 in the appropriate sign
+                y += yone;   
+            } else {   // horizontal move: 2 moves in 2
+                x += xone; // doesn't matter which increases first
+                process(Floor2(x+y),y-x); // note: passing array coords
+                y += yone;
+            }
+        } else {
+            x += xone;
+        }
+        process(Floor2(x+y),y-x); // note: passing array coords
+    }
+</pre>
+<p>So, the sequence of array coords to get from the hex at array coords (3,0) to the one at (0,3) is:</p>
+<pre class="simple">    (A.hex = (3,3), B.hex = (-1,2), sig = 1, dx = -4, dy = -1)
+    process(3,0)
+    process(2,1) 
+    process(1,1) 
+    process(1,2)
+    process(0,3)
+</pre>
+<h2>(6) LOS by Intersection of Hexagons with a Straight Line</h2>
+<p>The algorithm given above computes LOS by finding a shortest, “straightest” path between two hexagons. Sometimes, though, it is desireable to compute LOS not just by trying to draw as straight a line as can be formed formed from hexagons, but by finding all the hexagons that intersect a Euclidean line drawn on the hexagonal grid. If our “line” is a infinite half-ray (ie an arrow which starts at a given hexagon but continues on forever), then this corresponds to the set of hexagons which would be “visible” by someone standing at a particular hexagon and looking in a given direction; it is the Euclidean LOS mapped to the hexagonal grid. The algorithm given above is not ideal for this purpose—it draws a “straight” line which does not deviate too much from a Euclidean line, but it does not *always* find *all* the hexagons which would intersect this line.</p>
+<p>The brute force approach to this problem is just to go through every hexagon and calculate if a given straight line intersects the hexagon (intersection of a line and convex object like a hexagon is a simple problem, and an algorithm is given below; finding the actual intersection point is computationally more expensive), and then decide if it lies on the half-ray. This is quite wasteful, though, and it is a simple matter to restrict our intersection tests to a more realistic set, and in a way that does not actually require calculating any intersection points. We will still need functions to tell if a hexagon intersects a line, though. You could do this in many ways; here’s an easy and efficient way.</p>
+<p>The following turns() function is quite standard in graphics/geometry; it tells whether a given point is “left of” or “right of” a given directed line.</p>
+<pre class="simple">#define LEFT 1
+#define STRAIGHT 0
+#define RIGHT -1
+
+// returns LEFT if (x0,y0)--&gt;(x1,y1)--&gt;(x2,y2) turns to the left,
+//        RIGHT if (x0,y0)--&gt;(x1,y1)--&gt;(x2,y2) turns to the right
+//     STRAIGHT if (x2,y2) is colinear with (x0,y0)--&gt;(x1,y1)
+int turns(double x0,double y0,double x1,double y1,double x2,double y2) {
+    double cross;
+    cross = (x1-x0)*(y2-y0) - (x2-x0)*(y1-y0);
+    return((cross&gt;0.0) ? LEFT : ((cross==0.0) ? STRAIGHT : RIGHT));
+}
+
+// A convex object (like a hexagon) intersects an infinite line if and 
+// only if some (at least one) of its coordinates lie on one side of the 
+// line, and some (at least one) lie on the other.  Note that any two 
+// distinct points on our infinite line will work for (x0,y0) and (x1,y1).  
+// Also note that this function will consider a hexagon to intersect even 
+// if it just touches the line.  Returns 1 if it does intersect, 0 if not.
+int hexintersectsline(hexagon *h,double x0,double y0,double x1,double y1) {
+    // first see if it intersects the infinite line
+    int side1,i,j;
+    side1 = turns(x0,y0,x1,y1,h-&gt;x[0],h-&gt;y[0]);
+    if (side1==STRAIGHT) return 1;
+    for (i=1;i&lt;6;i++) {
+        j = turns(x0,y0,x1,y1,h-&gt;x[i],h-&gt;y[i]);
+        if (j==STRAIGHT || j!=side1) return 1;
+    }
+    return 0;
+}
+</pre>
+<p>So, suppose we’re standing at hexagon h0, which has centre (x0,y0), and you’re looking toward hexagon h1, which has center (x1,y1). To find all the hexagons intersecting this LOS, you have to find all hexagons intersecting the infinite half-ray starting at (x0,y0) and extending towards (and past maybe) (x1,y1). The following algorithm works by “following” the line as it intersects hexagons; we begin at hexagon h0 and we check to see which side of the hexagon the line exits from---the hexagon adjacent in that direction is the next one on the list. We continue in this manner until reaching h1 (which we are certain to do). For this we need a standardized way of referring to the sides and vertices of our hexagons.</p>
+<pre class="simple">// This set of routines finds all hexagons intersecting a Euclidean line 
+// between h0 and h1.  For this we need to make some assumptions about how 
+// hexagon corners are designated.  Assuming a coordinate system as shown 
+// in the section on how to use rectangular arrays of hexagons, we assume 
+// that hexagon vertices are stored in an array accessible by the hexagon 
+// structure and that vertices are numbered in the following way:
+//                  2  
+//               3 / \ 1
+//                | A |
+//               4 \ / 0
+//                  5
+// Given the coordinate system, we also know how coordinates change as we
+// move to any particular adjacent hexagon:
+//
+//               / \ / \
+//              | A | B |         if Z = (x,y) in hex coords, then:
+//             / \ / \ / \           A = (x,y-1)    F = (x,y+1)
+//            | C | Z | D |          C = (x-1,y-1)  D = (x+1,y+1)
+//             \ / \ / \ /           E = (x-1,y)    B = (x+1,y)
+//              | E | F |
+//               \ / \ /
+//
+// And that hexagons are maintained such that we can call the function
+// "hexAt(x,y)" for hexagon-coordinates (x,y) and get the hexagon structure 
+// at that location.  Symmetrically, we have to be able to tell what are 
+// the hexagonal coordinates of a given hexagon, so we assume each hexagon 
+// structure also contains its coordinates in its "hx" and "hy" fields.
+//
+// A line can intersect at most 3 hexagons at any point.  If we are 
+// building our list of intersecting hexagons incrementally by following 
+// the line, then each time we leave a hexagon we will have to consider
+// the possibility that we may be next intersecting either one or two
+// hexagons, but no more.  Thus, this routine calls "process" each time
+// with either one or two hexagons (in the latter case the 2nd argument
+// will be NULL).  Note that hexagons are assumed to intersect even if
+// it's just an edge or vertex that intersects the line.
+//
+// But first, a routine that finds the next hex or 2 after cur, making
+// sure it's/they're not cur2 (or cur) or last1 or last2.  Returns the
+// total number of next hexes found (should always be 1 or 2)
+int nexthexes(hexagon *cur,hexagon *cur2,hexagon **next1,hexagon **next2,
+              hexagon *last1,hexagon *last2,
+              double x0,double y0,double x1,double y1) {
+    hexagon *h;
+    int i,j,turn1,turn2;
+    static int hexneighbours[6][2] = { {1,1}, {1,0}, {0,-1}, 
+                                       {-1,-1}, {-1,0}, {0,1} };
+    *next1 = NULL;  *next2 = NULL;
+    for (i=0;i&lt;6;i++) {
+        turn1 = turn(x0,y0,x1,y1,cur-&gt;x[i],cur-&gt;y[i]);
+        turn2 = turn(x0,y0,x1,y1,cur-&gt;x[(i+1)%6],cur-&gt;y[(i+1)%6]);
+        if (turn1==STRAIGHT || turn2==STRAIGHT || turn1!=turn2) {
+            // in each of these cases we'll have to consider the hexagon
+            // adjacent to edge (i,i+1)
+            h = hexAt(cur-&gt;hx+hexneighbours[i][0],
+                      cur-&gt;hy+hexneighbours[i][1]);
+            if (h!=cur &amp;&amp; h!=cur2 &amp;&amp; h!=*next1 &amp;&amp; h!=*next2 &amp;&amp; 
+                h!=last1 &amp;&amp; h!=last2) {
+                if (*next1==null) *next1 = h;
+                else if (*next2==null) *next2 = h;
+            }
+            if (turn1==STRAIGHT) {  // current vertex (i) lies on the line
+                // hex next to edge (i-1,i)
+                h = hexAt(cur-&gt;hx+hexneighbours[(i+5)%6][0],
+                          cur-&gt;hy+hexneighbours[(i+5)%6][1]);
+                if (h!=cur &amp;&amp; h!=cur2 &amp;&amp; h!=*next1 &amp;&amp; h!=*next2 &amp;&amp; 
+                    h!=last1 &amp;&amp; h!=last2) {
+                    if (*next1==null) *next1 = h;
+                    else if (*next2==null) *next2 = h;
+                }
+            }
+            if (turn2==STRAIGHT) {  // next vertex (i+1) lies on the line
+                // hex next to edge (i+1,i+2)
+                h = hexAt(cur-&gt;hx+hexneighbours[(i+1)%6][0],
+                          cur-&gt;hy+hexneighbours[(i+1)%6][1]);
+                if (h!=cur &amp;&amp; h!=cur2 &amp;&amp; h!=*next1 &amp;&amp; h!=*next2 &amp;&amp; 
+                    h!=last1 &amp;&amp; h!=last2) {
+                    if (*next1==null) *next1 = h;
+                    else if (*next2==null) *next2 = h;
+                }
+            }
+        }
+    }
+    return (next2==NULL) ? 1 : 2);
+}
+
+// <em>See comment thread below from Ullaspool before using hexesintersectingline()</em>
+
+// Calls process with hexagons at each step.  This version of the
+// algorithm stops when it reaches h1---this is not a requirement,
+// and it should be obvious how to extend it to keep going to
+// infinity.  The center coordinates of hexagons are presumed to be 
+// accessible by their cx,cy fields.
+// Note that 2 calls to nexthexes are made.  This is because each time
+// we go through the loop we follow the line out of one or two hexes
+// and into one or two new hexes, so we need two calls to make sure
+// we have all possible new hexes starting from either of our two hexes.
+void hexesintersectingline(hexagon *h0,hexagon *h1) {
+    hexagon *next1,*next2,*cur1,*cur2,*last1,*last2;  
+
+    cur1 = h0;
+    cur2 = NULL;
+    last1 = last2 = NULL;
+    do {
+        process(cur1,cur2);
+        if (cur1==h1) break;
+        next1 = next2 = NULL;
+        nexthexes(cur1,cur2,&amp;next1,&amp;next2,last1,last2,
+                  h0-&gt;cx,h0-&gt;cy,h1-&gt;cx,h1-&gt;cy);
+        nexthexes(cur2,cur1,&amp;next1,&amp;next2,last1,last2,
+                  h0-&gt;cx,h0-&gt;cy,h1-&gt;cx,h1-&gt;cy);
+        last1 = cur1; last2 = cur2;
+        cur1 = next1; cur2 = next2;
+    } while (1);
+}
+</pre>
+<h2>(7) Euclidean Field of View (FOV) on a Hexagonal Grid</h2>
+<p>If you’re calculating LOS on a hexagonal grid in order to find all hexes visible from someone standing at a particular hexagon, you’re actually looking for the “Field of View.”</p>
+<p>You can calculate the FOV from hexagon h in a rectangular patch of a hexagonal grid by drawing Euclidean lines from h to every hexagon. Obviously, this is not the most efficient method---lines overlap, and so many hexagons will be examined repeatedly. Fortunately, a more efficent way exists.</p>
+<p>Consider a circle or “bubble” expanding outwards from h. If there are no obstacles in sight, everything within the bubble (up to some maximum radius if desired) is visible from h. An obstacle, a hexagon one cannot see through, though casts a shadow, which should block view of all hexagons “behind” the obstacle hexagon. In the diagram below, for instance, if we are standing at the centre of h and hexagon X contains the only obstacle (which completely fills X), we should be able to see all unmarked hexagons, but any marked S are fully obscured, and ones marked P are partially visible (depending on your goals, you can consider partially-blocked hexes as visible or not):</p>
+<pre>               / \ / \ / \ / \ / \ / \ / \   
+              |   |   |   |   | P | S | S |  
+             / \ / \ / \ / \ / \ / \ / \ / \ 
+            |   |   |   |   | P | S | S | S |
+             \ / \ / \ / \ / \ / \ / \ / \ / 
+              |   |   |   | X | P | P3| P |  
+             / \ / \ / \ / \ / \ / \ / \ / \ 
+            |   |   | h |   | P1| P2|   |   |
+             \ / \ / \ / \ / \ / \ / \ / \ / 
+              |   |   |   |   |   |   |   |  
+             / \ / \ / \ / \ / \ / \ / \ / \ 
+            |   |   |   | A |   |   |   |   |
+             \ / \ / \ / \ / \ / \ / \ / \ / 
+</pre>
+<p>In other words, we look from a point (center of h), and obstacles are presumed to fill their entire hexagon. This means obstacles cast a shadow “cone”—the center is the center of h, and the “arms” of the cone are as close to hexagon X as possible without crossing the interior of X (sorry, ascii is just not up to depicting this). This means our circular field of view from h can be divided into a sequence of shadow cones separated by visible cones. Of course, whether we consider shadow cones or visible cones is not real critical here (from one representation we can clearly derive the other), and in fact it turns out to be slightly more efficient to represent the field of view as composed of a sequence of visible cones, rather than a sequence of shadow cones. This is what we shall do.</p>
+<p>Suppose we start off with some visible cones, with their union forming the entire 360-degree FOV. Determining visibility is then a matter of repeatedly expanding these cones outward one radius unit, possibly shrinking them or splitting them as they encounter obstacles.</p>
+<p>Each cone is thus represented by its two (x,y)-coordinates for its two arms, and a list of the hexagons forming its “outer arc”. Actually, we don’t need to keep a literal list of hexagons---we can number each hexagon in our expanding bubble by it’s “polar” coordinates, formed from radius and counter-clockwise distance along the circle from the hex at 3 o’clock. Thus in our above diagram, P1 has polar coords (2,0), P2 is (3,0), P3 is (4,1), X is (2,1) and A is (2,10). It is easy to convert between hex coords, array coords, and these new hex polar coords; if a hex h has polar coordinates (r,t), and the center of the circle has hex coords (x,y), then we can calculate h’s hex coords as follows:</p>
+<ol>
+<li>Each circle at a given radius looks like a big hexagon. We first find out which “side” h is on, which we can do be noting that each of the sides of the circle at radius r consist of r hexagons. Thus, h is on side <code>s = (int)(t/r)</code>.</li>
+<li>It is easy to figure out where the 6 corners of the circle are. Each corner is r hexes along a line of adjacent hexagons, so we can use the way coordinates change (described in Section (7), the A-F directions from Z). We can then tell where h is if we know how far along the given side h is, which can be calculated by e = t%r. First we determine the hex coords of the appropriate corner <code>(cx,cy) = ((x,y) + (r * one of A-F))</code>, then we use the same set of direction vectors to calculate the coords of h as <code>(cx,cy) + e * (a different one of A-F)</code> by following along the appropriate line. Sample code is shown in the HexGrid.hexOnCircle() method of the HGAT code, described below.</li>
+</ol>
+<p>Thus, we need only store the coords of the two hexes forming the end-points of our arc for each cone. Using these polar coords and being able to conveniently convert from polar to hex/array means that we can iterate through the list of hexagons forming the arc, say (r,t1) and (r,t2), by just running through all hexes in (r,i) for i=t1 to t2.</p>
+<p>It should be noted that our cones make use of two kinds of information for designating their limits: the arms and the outer arc of hexagons. It is the arms which designate the limits of visibility for each particular cone. However, the end-points of the arms are *not* updated each iteration outward unless we encounter a new obstacle. There’s really no need to stretch the arms out if the cone hasn’t changed; the whole point of the cones is to be able to determine which hexagons lie inside (wholly or partially) the cone, and which do not. This sort of information is calculated by looking at cross products to determine whether hexagon vertices are “left of” (CC-wise) or “right of” (C-wise) of a given arm; such an approach works for any two points on our cone arm, so if the arm does not move there’s no reason to update the arm endpoint.</p>
+<p>So, why do we need to maintain the arc-list of hexagons? Each time we expand outward we may encounter new obstacles in the path of our cone. The arc-list makes finding these obstacles somewhat easier than checking every hexagon on the circle perimeter for intersection with a given cone. Given a list of hexagons comprising the outer arc of a cone it is also a simple matter to expand it outward one radius unit; one looks at all neighbours of the two arc endpoints which are one radius unit further out, and checks to see which hex intersects the cone’s actual arm, or which is the first to lie entirely to one side of the arm (ie, it’s inside the cone, but one has to be careful not to exclude the possibility of the cone being too narrow to contain a whole hexagon). The hex which does so is the endpoint of the next arc outward. It should be noted that these endpoints are not unique between cones—adjacent cones might indeed share an endpoint hex; effectively, the arms designate the cone limits, but the arcs give the list of hexagons which fully *or partially* intersect the given cone.</p>
+<p>When we encounter obstacles, we shrink or split the cone to exclude them. If the obstacle blocks an endpoint of the arc, we simply move our cone arm toward the other cone arm, effectively shrinking the cone. Thus, the process of expanding outwards includes not only finding the next arc, but also possibly shrinking the cone by moving the arm endpoints. Of course if we move both arm endpoints to the degree where the clockwise and counter-clockwise arms of our cone meet or cross over, then the cone is empty and can be discarded.</p>
+<p>As well as shrinking the cones to account for obstacles near the endpoints of our arcs, we may also have to split our cones if we encounter an obstacle somewhere within the interior of an arc. In such a case we divide our cone into two cones, and recursively repeat the process of adjusting our cones.</p>
+<p>There are some non-trivial implementation issues here. First, in order to avoid dealing with degenerate cones—obtuse ones, and in particular ones with an interior angle of 180-degrees or more—it is best not to start off with one 360-degree cone representing the entire space; rather, space should be already divided into several cones. The HGAT code starts off with 4 cones, one for each quadrant; since cones never widen, this ensures we do not have to ever worry about clockwise and counter-clockwise arms getting confused. The second issue results from dealing with finite hex grids—what does one do when the arcs are only partially on the rectangular patch of hex grid in which we are interested? After all, our expanding circles are certain to only refer to valid hexagons when they’re entirely contained inside the section of grid we are representing, but the FOV calculation should not stop until it has expanded the circle so the entire circle is outside the grid (if we want FOV over the entire grid). We could hack in special code to avoid this situation; the approach in HGAT is to generate “fake” hexagon structures for the hexagons outside our grid—these structures are only created as requested by the FOV algorithm, and are discarded as soon as they are no longer needed. This isn’t the most efficient way of dealing with this problem—special code would be better—but it is perhaps the easiest way of avoiding the issue.</p>
+<p>One final implementation point is how to deal with numerical error. Depending on how we calculate the coordinates of hexagon corners, we may find that cones which should be eliminated are instead just becoming extremely-thin. This can result in hexagons which should be obscured being considered visible. In the implementation mentioned below this is handled by checking the interior angle of all cones created—any which are too narrow are considered empty. Note that we don’t have to actually calculate the angle; we use instead an upper bound on the cosine of the angle, which avoids actually evaluating trigonometric functions.</p>
+<p>The entire algorithm is just too long to include the code here. The overall process is simple enough, though:</p>
+<ol>
+<li>Initialize 4 cones</li>
+<li>Expand the arcs of the cones out one radius unit, respecting the arms.</li>
+<li>If the arms intersect any obstacle hexes, contract the arms (and hex-lists) to exclude the obstacle hex. Do this for both sides; if this causes the arms to coincide or cross, the cone is empty and can be discarded. Otherwise run through each hex on the arc list and look for obstacle hexes. Such obstacles cause the cone to be split into two (non-empty, because we know the arc endpoints are not obstacles) cones, which may be recursively shrunk and/or split.</li>
+<li>Repeat from step 2)</li>
+</ol>
+<p>A Java implementation illustrating the FOV algorithm can be seen at: <a href="http://www-acaps.cs.mcgill.ca/~clump/Hex/HGAT.html">http://www-acaps.cs.mcgill.ca/~clump/Hex/HGAT.html</a><sup class="print-endnote">[4]</sup>. The program is available as an applet on the above page; complete source code is available (HGAT.zip) in the same directory.</p>
+<p>In this program you see a hex grid with some obstacle hexes darkened (and FOV is to be calculated from the center). Each time you press the “Expand” button the cones move out one radius unit (“New” randomizes the locations of the obstacles, “Restart” does the same grid again). The cone arms are also shown; note how the endpoints are not updated unless the arm must be moved. Visible hexes at each step are indicated by writing their polar coords inside the hex.</p>
+<h2>(8) References</h2>
+<p>Incidentally, the distance metric and matrix representation described above are (well?) known in the literature. You can read more about them in:</p>
+<pre class="simple">@Article{LuczakRos76,
+  author =       {Ed Luczak and Azriel Rosenfeld},
+  title =        {Distance on a Hexagonal Grid},
+  journal =      {{IEEE} Transactions on Computers},
+  year =         1976,
+  volume =       25,
+  number =       5,
+  month =        {may},
+  pages =        {532--533}
+}
+</pre>
+<h2>Notes from others</h2>
+<p>Frantisek Fuka writes:</p>
+<pre class="simple">I read the algorithm for calculating the distance in hexagonal 
+coordinates system, which is as follows:
+
+     dx = B.x - A.x;
+     dy = B.y - A.y;
+     if (sign(dx) == sign(dy)) {    // this is (1); see first paragraph
+         dist = max(abs(dx),abs(dy));
+     } else {
+         dist = abs(dx) + abs(dy);
+     }
+
+I think the simpler (=faster) method is:
+
+     dx = B.x - A.x;
+     dy = B.y - A.y;
+     dist = (abs (dx) + abs (dy) + abs (dx-dy)) / 2
+
+Of course, the division by 2 can be done faster as right bitshift...
+</pre>
+<p>Thanks Frantisek! --<a href="/~amitp/">Amit</a></p>
+<p>Kjkazinski finds that the formulas that Clark uses for converting between array coordinates and hex coordinates will need modification if your array coordinates aren’t exactly the same as what Clark uses.</p>
+<p>Ullaspool writes that there is likely a bug in the implementation of <code>hexesintersectingline()</code>; see the comment thread below.</p></section></main><div class="below-divider">
+<p>Email me <a class="email" rel="me" href="mailto:redblobgames@gmail.com">redblobgames@gmail.com</a>, or comment here:</p>
+<div class="print-endnote">
+<h3>Links</h3>
+<ol>
+<li>[1]: https://www.redblobgames.com/grids/hexagons/</li>
+<li>[2]: http://www.sable.mcgill.ca/~clump/hexes.txt</li>
+<li>[3]: http://www.sable.mcgill.ca/~clump/research.html</li>
+<li>[4]: http://www-acaps.cs.mcgill.ca/~clump/Hex/HGAT.html</li>
+</ol>
+</div>
+<div class="comments" role="complementary">
+<div id="disqus_thread"><button style="padding:1em;width:100%" onclick="$disqus()">Load comments</button></div>
+<script>
+function disqus_config(){this.page.url="http://www-cs-students.stanford.edu/~amitp/Articles/HexLOS.html"}
+function $disqus(){$disqus=()=>{};$l("https://blobs.disqus.com/embed.js")}
+if(document.location.hash.match(/#comment/))setTimeout($disqus,0)
+else {new IntersectionObserver(e=>{if(e[0].isIntersecting)$disqus()}).observe(document.getElementById('disqus_thread'))}</script><noscript><a href="https://blobs.disqus.com/?url=http://www-cs-students.stanford.edu/~amitp/Articles/HexLOS.html">View the discussion thread.</a></noscript>
+</div>
+</div>
+<footer><div><div>
+	       </div></div></footer>
+</body>
+</html>

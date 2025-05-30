@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en">
+<head>
+
+<meta charset="utf-8">
+<title>Hexagonal Coordinates</title>
+<link rel="canonical" href="http://www-cs-students.stanford.edu/~amitp/Articles/Hexagon2.html">
+<!--DO NOT EDIT: generated from Articles/Hexagon2.bxml-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/~amitp/favicon.ico">
+<link rel="apple-touch-icon" href="/~amitp/red_blob.gif">
+<link rel="preload" as="image" href="/~amitp/transparent-blob.png">
+<link rel="alternate" type="application/atom+xml" title="Blog posts" href="https://www.redblobgames.com/blog/posts.xml">
+<meta name="theme-color" content="hsl(0,50%,45%)">
+<style>:root{--hue: 0;--bgurl: url("/~amitp/transparent-blob.png")}/*! CSS Copyright 2007-2023 by amitp@cs.stanford.edu (Amit J. Patel)  *//*! I don't mind if you copy my stylesheet.  However, I'd appreciate it if you gave me credit. */body{--serif: "Iowan Old Style",Cambria,Georgia,serif;--sans-serif: "Avenir Next",Candara,Ubuntu,"Fira Sans",system-ui,"Segoe UI",sans-serif;--monospace: "Roboto Mono","Cascadia Code",Consolas,monospace,"Segoe UI Symbol",Symbol;--body-width: calc(100vw - 2.25rem);--font-size: calc(0.625rem + 1vw);--line-height: calc(1.5 * var(--font-size));font-family:var(--sans-serif);font-size:var(--font-size);line-height:1.5em;min-height:95%}@media (min-width: 34.375em){body{--body-width: min(20.6rem + 33vw, 41.25rem);--font-size: calc(var(--body-width) / 33)}}main{font-family:var(--serif)}h1,h2,h3,h4,h5,h6,figcaption,.sans-serif{font-family:var(--sans-serif);text-wrap:balance}tt,code,kbd,samp,pre{font-family:var(--monospace);font-size:0.8em}pre :is(tt, code, kbd, samp){font-size:unset}#table-of-contents{background-color:#fff;padding-left:1em;width:18em;float:right}#table-of-contents:after{clear:right}nav,#table-of-contents{font-family:var(--sans-serif);font-size:calc(var(--font-size) / 1.25)}nav a,#table-of-contents a{text-decoration-color:hsl(var(--hue), 20%, 90%)}@media screen{header,section>h2{text-shadow:0px 2px 5px rgba(0,0,0,0.8);text-rendering:optimizeLegibility}}h1{font-size:2.0em;margin:0;line-height:calc(1.5 * var(--line-height))}h1 .subheading{font-size:0.5em;line-height:var(--line-height)}sup,sub{position:relative;vertical-align:baseline;font-size:0.75em;line-height:0;padding-left:0.125em}sup{top:-0.5em}sub{bottom:-0.25em}details summary{cursor:pointer}*{box-sizing:border-box}html,body{margin:0;padding:0}html{background-color:#e4e4e0;color:#000}body{background-color:#fff;color:#333}header{display:block;text-align:center}header>h1{padding-top:var(--line-height)}@media screen{header,footer,.divider,section>h2{color:#fff;background-color:hsl(var(--hue), 50%, 45%);background-image:var(--bgurl), var(--bgurl), linear-gradient(180deg, hsl(var(--hue), 50%, 45%) 0%, hsl(var(--hue), 75%, 30%) 100%);background-position:0 0, 16px 16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}header a,footer a,.divider a,section>h2 a{color:hsl(var(--hue), 40%, 90%);background:unset;text-decoration:none}header a:hover,footer a:hover,.divider a:hover,section>h2 a:hover{background-color:rgba(0,0,0,0.5);text-decoration:underline}}footer a,.divider a{text-decoration:underline}main{margin-inline:0;padding-inline:0}section{margin:var(--line-height) 0}section>*{width:var(--body-width);max-width:100%}.comments{width:calc(1.5 * var(--body-width));max-width:100%}@media screen{.comments,.below-divider{background-color:#e6e6e5}}.comments{padding-bottom:1.25em;font-size:1.0em}.comments .comment-author{text-shadow:1px 1px 3px #fff}section>h2{--h2-margin: 3em;margin:var(--line-height) auto;padding:calc(var(--line-height) / 2 - 1px) 0;font-size:1.25em;width:calc(2 * var(--h2-margin) + var(--body-width));max-width:100%}section>h2>span{display:inline-block;margin-left:var(--h2-margin)}section>h2 a.anchor{float:right;width:calc(var(--h2-margin));text-align:center;color:hsl(var(--hue), 50%, 45%)}section>h2:hover a.anchor{color:hsl(var(--hue), 20%, 80%)}h3{--h2-margin: 3em;margin:var(--line-height) auto;font-size:1.125em}h3 a.anchor{float:right;width:calc(var(--h2-margin));text-align:center;color:hsl(var(--hue), 20%, 80%)}@media (min-width: 34.375em){h3 a.anchor{margin-right:calc(0em - var(--h2-margin))}}h4 a.anchor,h5 a.anchor,h6 a.anchor{padding-left:1em;color:hsl(var(--hue), 20%, 80%)}h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{color:hsl(var(--hue), 50%, 40%)}header nav{display:block}header nav ul{display:flex;flex-flow:row wrap;justify-content:center;line-height:1.0;margin:0}header nav ul li{display:inline-block;padding:0.1em 0.3em;text-align:center;flex:0 0 4em;align-self:center;white-space:nowrap}header nav ul li a{display:block;font-weight:bold;text-decoration:none}header,.divider,section>h2{border-bottom:1px solid #000}.divider,section>h2{border-top:1px solid #000}.divider{min-height:calc(2 * var(--line-height));text-align:center}.below-divider{padding-top:var(--line-height);border-bottom:1px solid black}.below-divider>p:first-child{font-size:1.25em;text-align:center;margin-top:0}footer{--footer-padding-y: calc(var(--line-height) / 2);--footer-padding-x: var(--font-size);padding:var(--footer-padding-y) var(--footer-padding-x);border-top:1px solid #000}footer>div>address{display:block}footer>div>*{text-align:center}@media (min-width: 50em){footer>div{margin:0 auto;display:flex;flex-flow:row wrap;justify-content:center;max-width:calc(2 * var(--body-width));width:calc(100vw - 2 * var(--footer-padding-x))}footer>div>address{flex:0 1 20em;align-self:center;text-align:left}footer>div>div{flex:1 1 20em;align-self:center;text-align:right}footer>div>div>p,footer>div>div>div{margin-top:0}}h2:target{animation:target-attention 0.4s 1;font-size:2.0em}@keyframes target-attention{0%{transform:scale(1.1)}100%{transform:scale(1.1)}}div:target{border:1px dashed #888}kbd kbd{padding:0.1em 0.4em;margin:0 0.1em 0.2em 0.1em;font-size:0.75em;white-space:nowrap;background-color:#ddd;color:#242;border:1px solid rgba(0,0,0,0.2);border-radius:0.2em;box-shadow:inset 0 0 1px 1px #fff,0 2px 0 rgba(0,0,0,0.3)}samp,kbd{background-color:#f3f3f2}code,samp{color:#442}kbd{margin:0 0.4em;color:#252}section li::marker{font-family:var(--sans-serif);color:hsl(var(--hue), 50%, 40%)}img{max-width:100%;height:auto;-ms-interpolation-mode:bicubic}section figcaption{font-size:0.75em;line-height:1.1;text-align:center}a{color:hsl(var(--hue), 50%, 45%);text-decoration-color:hsl(var(--hue), 20%, 80%);text-underline-offset:0.25em}a:hover{text-decoration:underline;text-decoration-color:hsl(var(--hue), 50%, 45%);background:hsla(var(--hue), 50%, 50%, 0.1)}:focus-visible{outline-color:hsl(var(--hue), 50%, 45%)}.draft{font-family:var(--serif);font-size:calc(4 * var(--font-size));letter-spacing:-0.1em;color:#eee;opacity:0.5;text-align:center;transform:rotate(-5deg);line-height:1.0;position:absolute;top:0;height:0;left:25%;width:50%;pointer-events:none}@media (min-width: 34.375em){section p,section li{hanging-punctuation:first last;text-wrap:pretty;hyphens:auto;hyphenate-limit-chars:7}}nav,.section-number,address,time{font-variant-numeric:oldstyle-nums}.w-auto,section>.w-auto{width:auto}.w-full,section>.w-full{width:100%}.w-150b,section>.w-150b{width:calc(1.5 * var(--body-width))}.select-none{user-select:none;-webkit-user-select:none}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.text-sm{font-size:0.875em}.font-sans{font-family:var(--sans-serif)}.font-serif{font-family:var(--serif)}.font-mono{font-family:var(--monospace)}.normal-nums{font-variant-numeric:normal}.oldstyle-nums{font-variant-numeric:oldstyle-nums}p,figure,ul,ol{margin:var(--line-height) 0}header>*,section>*,footer>*,main>address,.comments{margin-inline:auto}figure{text-align:center}figure pre{text-align:left}li>ul,li>ol{margin-top:0;margin-bottom:0}figure img,figure svg,figure canvas{max-width:100%}dt{font-weight:bold}pre{width:var(--body-width);max-width:100%;line-height:1.4;overflow:auto;border-block:1px solid #ccc;border-inline-width:0}pre.simple,.comments pre{overflow:auto;width:calc(var(--body-width) * 1.2);border:none;background:transparent;background-color:transparent;box-shadow:none}pre.snippet,pre.src{border-top-style:dashed;border-bottom-style:dashed}section>pre:only-child{padding-bottom:var(--font-size);border-bottom:1px solid rgba(0,0,0,0.5)}blockquote{font-style:italic;text-wrap:balance}table.standard2024{font-family:var(--sans-serif);font-size:0.875em;border:2px solid white;border-collapse:collapse;overflow-x:auto}table.standard2024 th{background-color:#e8e8e3;border:2px solid white;padding:0 0.5em}table.standard2024 td{background-color:#fff;border:1px solid #f3f3f2;border-right-color:#babaab;padding:0 0.5em}table.standard2024 thead{border-bottom:2px solid #babaab}table.standard2024 thead th{background:linear-gradient(to top, #e8e8e3, #f4f4f1, #fafaf9)}table.standard{font-family:var(--sans-serif);font-size:0.875em;border-block:2px solid hsl(var(--hue), 10%, 50%);border-collapse:collapse;overflow-x:auto;text-align:left}table.standard td,table.standard th{border-bottom:1px solid #f3f3f2;padding:0 0.5em}table.standard :is(td, th):not(:last-child){border-right:1px solid #babaab}table.standard td{background-color:hsl(var(--hue), 10%, 97%);border-bottom-color:white}table.standard thead{border-bottom:2px solid hsl(var(--hue), 10%, 50%);vertical-align:bottom}table.standard tfoot{border-top:2px solid hsl(var(--hue), 10%, 50%);vertical-align:bottom}table.standard thead th{background:linear-gradient(to top, hsl(var(--hue), 10%, 85%), hsl(var(--hue), 15%, 87%), hsl(var(--hue), 15%, 90%));border-bottom:unset}table.standard tbody th{background-color:hsl(var(--hue), 10%, 95%);border-bottom:1px solid white}table.standard tr:hover :is(td, th){background-color:hsl(var(--hue), 25%, 93%)}aside,p.note,div.note>p{width:calc(--body-width - 2em);padding:1em;background:#eee;border:1px solid #ddd;box-shadow:0 8px 6px -6px rgba(0,0,0,0.4)}tt,code{padding:0 2px}pre :is(tt, code){padding:unset}main>address,section>address,section>time{display:block;width:var(--body-width);max-width:100%;font-family:var(--sans-serif);text-align:right}form{margin:0}input{accent-color:hsl(var(--hue), 50%, 50%)}input[type="text"]{max-width:100%;border:1px solid rgba(0,0,0,0.7);background-color:#f8f8f4;color:#000;text-align:center;font-weight:bold}input[type="text"]:focus{background-color:#fffff4}input::placeholder{color:#aaa}input[type="search"][name="q"]{box-shadow:inset 0 0.1em 0.3em 0 rgba(0,0,0,0.5);border-radius:0.6em;padding:0.3em 0.6em;border-width:0}button{touch-action:manipulation;cursor:pointer;user-select:none}.TODO{color:#bf4040;background:#e8e3e3;border:1px solid #bf4040;margin-left:0.5ex}.DONE{color:#4040bf;background:#e3e3e8;border:1px solid #4040bf}.src .constant{font-style:oblique}.src .comment-delimiter,.src .nxml-comment-delimiter{color:#4488ff}.src .comment,.src .nxml-comment-content{color:#006699}.src .builtin{color:#508b20}.src .warning{color:#cc0000}.src .function-name{color:#268bd2;font-weight:bold}.src .variable-name{font-weight:bold;color:#5c3d5c}.src .type{color:#6c71c4}.src .constant-face{color:#d33682}.src .doc{color:#666666;background-color:#e2e6e8}.src .string{color:#888888}.src .preprocessor{color:#859900}.src .negation-char,.src .sh-escaped-newline{color:#ff0000}.src .todo{color:#ffffff;background:#dc322f}.src .note{color:#ffffff;background:#2aa198}.src .hack{color:#ffffff;background:#859900}.src .operator{color:black;font-weight:bold}.src .paren{color:#a0a090;font-weight:bold}.src .keyword{color:#679;font-weight:bold}.src .minor-control-construct{color:#406abf;font-weight:bold}.src .major-control-construct{color:#bf4040}.src-cpp .constant{color:#999999}.src-emacs-lisp .paren{color:#c9c9c4}.src-sh .string,.src-sh .comment{color:inherit}.src-python .highlight-indentation{border-right:2px solid #eeeeee}.src-css .css-selector{color:#478547}.src-css .css-property{color:#406abf}.src-xml .nxml-element-prefix{color:#bf40bf}.src-xml .nxml-element-local-name{color:#406abf;font-weight:normal}.src-xml .nxml-attribute-local-name{color:#478547}.src-xml .nxml-element-colon{color:#a3adc2}.src-xml .nxml-tag-delimiter,.src-xml .nxml-tag-slash{color:#9cabc9;font-weight:bold}table.standard td.left,table.standard th.left{text-align:left}table.standard td.center,table.standard th.center{text-align:center}table.standard td.right,table.standard th.right{text-align:right}@media screen{*[class^="section-number"]{color:hsl(var(--hue), 20%, 50%)}h2 .section-number{display:inline-block;margin-left:0;padding-left:0.5em;text-align:center;width:var(--h2-margin);color:hsl(var(--hue), 50%, 80%)}h2 .section-number+span{margin-left:0}h3>.section-number{float:left;text-align:center;width:2.7em;margin-right:0.3em;color:hsl(var(--hue), 25%, 90%);background:hsl(var(--hue), 50%, 50%);background-image:var(--bgurl), var(--bgurl);background-position:0 0, 16px 16px;border-radius:0.25em;text-shadow:0px 2px 5px rgba(0,0,0,0.8)}}@media screen and (min-width: 34.375em){h3>.section-number{height:2em;margin-left:-3em;margin-top:-0.3em;padding-top:0.3em;border-block:1px solid black}h3>a.anchor{background:url(https://www.redblobgames.com/img/svg-blob-mini.svg) no-repeat center center;background-size:2cap 2cap}h3:hover>a.anchor{background:none}}.print-endnote{display:none}@media print{@page{margin:0.5in}body{--font-size: 14pt;--serif: "Book Antiqua", "Times New Roman", serif;--sans-serif: "Helvetica", sans-serif;--monospace: "Courier", "Courier New", monospace}h2,h3{page-break-after:avoid}figure{page-break-inside:avoid}p,li{orphans:5;widows:5}section p a,section li a{text-decoration:underline;text-decoration-color:#ddd}header nav,.comments{display:none}.print-endnote{display:unset}.print-endnote li{list-style-type:none;word-break:break-all}.print-endnote img{width:2.5em;vertical-align:bottom}}
+
+@media print{header::before{position:absolute;right:0;top:0;content:url(https://chart.apis.google.com/chart?chs=120x120&cht=qr&chl=http%3A%2F%2Fwww-cs-students.stanford.edu%2F~amitp%2FArticles%2FHexagon2.html);}}
+	  
+      pre, pre.simple { max-width: var(--body-width); font-size: 75%; }
+  </style>
+<script>function $l(s,e,d){d=document;if(d.location.hostname!='localhost'){e=d.createElement('script');e.async=true;e.src=s;e.dataset.timestamp=+new Date();d.body.appendChild(e)}}</script>
+</head>
+<body class="gameprog">
+<header><h1>Hexagonal Coordinates</h1>
+<nav><search><form action="https://www.google.com/search">
+<ul> <li><a href="https://www.redblobgames.com/">Home</a></li> <li><a href="https://www.redblobgames.com/blog/">Blog</a></li> <li><a href="https://pinboard.in/u:amitp/t:gamedev/">Links</a></li> <li><a href="https://bsky.app/profile/redblobgames.com">Bluesky</a></li> <li><a rel="me" href="http://www-cs-students.stanford.edu/~amitp/">About</a></li> <li> </li> <li><input type="search" name="q" placeholder="Search" size="8"></li>
+</ul>
+<input type="hidden" name="hq" value="site:www.redblobgames.com OR site:theory.stanford.edu/~amitp/ OR site:www-cs-students.stanford.edu/~amitp/ OR site:amitp.blogspot.com OR site:simblob.blogspot.com">
+</form></search></nav></header><main><address>Authors: Charles Fu and others</address>
+<section><p><strong>Update:</strong> Also see <a href="https://www.redblobgames.com/grids/hexagons/">Amit’s guide to hex grids</a><sup class="print-endnote">[1]</sup> (2013), where I further explore the ideas Charles Fu posted here.</p>
+<p>This page contains a message that Charles Fu posted to <tt>rec.games.programmer</tt> in <b>1994</b>, plus a collection of messages that people emailed to me directly. This is the most elegant hexagonal coordinate system I’ve seen; for a different system, see <a href="http://www-cs-students.stanford.edu/~amitp/game-programming/grids/">my article on grids</a><sup class="print-endnote">[2]</sup>. —Amit</p>
+<hr>
+<pre class="simple">From: ccwf@plato.klab.caltech.edu (Charles Fu)
+Newsgroups: rec.games.programmer
+Subject: Re: Which point is in the hex?
+Date: 4 Jun 1994 16:47:28 GMT</pre>
+<pre class="simple">In article &lt;2sinkh$kj@controversy.math.lsa.umich.edu&gt;,
+Zachary S. Delproposto &lt;zsd@umich.edu&gt; wrote:
+&gt;:Joseph Hlebasko (hlebasko@lilly.com) wrote:
+&gt;:     |2  \|  is x above or below the line? You can use Y=MX+B and search
+&gt;: this way (brute force)
+&gt;:     |____\     or if your hexes are small enough you can pre-calculate
+&gt;: the coords and store in
+&gt;:                a table and do a table search.
+
+&gt;This is a very good description, and is quite similar to what I did in
+&gt;a program I wrote.  However, the triangle part was easy -- I used
+&gt;the region functions in the Windows API (now under DOS, it's a bit
+&gt;more difficult!).</pre>
+<p>Am I the only one who has found all the solutions presented so far less than elegant? Maybe it’s just my mathematical background. Anyways, I presented my solution to this problem in this group, oh, almost a decade ago now. Since I didn’t save the article <tt>:-)</tt>, I put pencil to paper and rederived the results. (Actually, this is slightly cleaner than my original solution: I’ve improved a little over the years. <tt>:-)</tt> Basically, for hex grids I advocated using a symmetric system of three axes each 120 degrees apart (obviously, one is redundant). For example, have x increasing to the right, y increasing to the upper left, and z increasing to the lower left. Then, your hexes will have coordinates like this:</p>
+<pre class="simple">           ____
+          /    \\
+     ____/ 0 1-1\\____
+         \      //    \
+   -1 1 0 \____// 1 0-1\___
+          /    \\      /
+     ____/ 0 0 0\\____/ 2 -1 -1
+         \      //    \
+   -1 0 1 \____// 1-1 0\__
+          /    \\      /
+     ____/ 0-1 1\\____/
+         \      //    \
+          \____//      \</pre>
+<p>The formula for which hex a point belongs to is then</p>
+<pre class="simple">  ____   ____ _
+  rint { rint(r) - [ 0.5 - max |rint(r )-r | ] sum rint(r ) }
+			    i         i   i     i        i</pre>
+<p>where <span style="text-decoration:overline">r</span> is your ungridded position, rint is your rounding function of choise, and the top bar indicates a vector. The zig-zag is not directly relevant and is explained at the end of the article.</p>
+<p>Of course, this is just a pretty formula and not an efficient implementation. An efficient implementation would go something like this:</p>
+<pre class="simple">  /* doubles x, y, and z hold the initial raw ungridded position */
+  double rx, ry, rz;
+  int ix, iy, iz, s;
+
+  ix = rx = rint(x);
+  iy = ry = rint(y);
+  iz = rz = rint(z);
+  s = ix + iy + iz;
+  if(s) {
+    double abs_dx = fabs(rx-x),
+           abs_dy = fabs(ry-y), abs_dz = fabs(rz-z);
+
+    if(abs_dx &gt;= abs_dy &amp;&amp; abs_dx &gt;= abs_dz) ix -= s; /* abs_dx is max. */
+    else if(abs_dy &gt;= abs_dx &amp;&amp; abs_dy &gt;= abs_dz)
+      iy -= s; /* abs_dy is max. *.
+    else iz-=s;
+  }
+
+  /* ix, iy, iz now hold the coordinates of the hex. */</pre>
+<p>Obviously, further machine implementation optimizations can be made depending upon the speed with which doubles can be cast to ints, whether or not rint and fabs are inlined and implemented in hardware, whether or not your machine uses a IEEE floating point representation, pipelining issues, and so forth. The if-else if-else can also be improved.</p>
+<p>Note that the algorithm is symmetric in x,y,z since the axes are symmetric. Also, x+y+z is always zero. These two facts make algorithms more intuitive and bugs much easier to spot. Similarity in instructions may also improve chances for compiler or hand optimization. If desired, z can be computed whenever needed to reduce the memory usage by a few measly bytes.</p>
+<p>Of course, if you don’t use my coordinate system, you will need to convert in and out of it. This should be pretty simple. For example, if you use the popular system with x increasing by one every hex to the right and y increasing by one every hex up with y going 0.5,1.5,2.5,... on the odd columns, then your x is the same as my x and your y is just offset from mine by x/2 (and my z=-x-y as pointed out above).</p>
+<p>**mathematical details below--not for the fain-hearted**</p>
+<p>How was the above formula derived? The insight is that a uniform hex grid is the isometric projection of an infinite grid of unit cubes whose centers satisfy the equation x+y+z=0. Thus, hairy problems with hexes in 2-D become nicer problems with cubes in 3-D in very much the same way that using homogenous coordinates linearizes projective transformations.</p>
+<p>(An isometric projection is an orthographic, i.e., non-perspective, projection onto the x+y+z=0 plane. It is one of the standard views used by draftsmen: the one with x, y, and z 120 degrees from each other, just like my axes.)</p>
+<p>In this particular case, the problem of determining which hex contains a given point becomes the trivial problem of which cube contains a point. The rest of the code just transforms from the x+y+z=0 plane to the cube grid and vice versa. That’s it.</p>
+<p>With the cube grid system, problems like counting the number of hexes between points also becomes trivial. The system also has interesting bizarre properties such as lines of constant x zigzagging to follow hex sides as shown in the diagram above. If you want a Euclidean metric, just stick with the rotated coordinate system and avoid the fancy projection except when discrete hexes are needed.</p>
+<p>Final note: my advocacy of this approach got no support when I first posted it years ago. Perhaps it will stir more interest now. There does seem to be a gradual trend toward mathematical literacy amongst game designers and CG programmers. Perhaps there’s hope for me yet. <tt>:-)</tt></p>
+<p>-ccwf</p>
+<pre class="simple">...  Anatomy is very poor...  See how that muscle connects?...  And
+that perspective, _yeesh_!...  Do you know what a _vanishing point_
+is?  And as for _faces_...
+                     -Scott McCloud, _Understanding Comics_</pre></section><hr>
+<section><p>Along the same lines, Bram de Greve writes:</p>
+<pre class="simple">From: Bram de Greve 
+To: amitp@CS.Stanford.EDU
+Subject: Distance in hexaconal grids with Isometric Cube Coordinates 
+Date: Wed, 17 Nov 1999 20:50:44 +0100 (MET)</pre>
+<p>Hi,</p>
+<p>I have here a very simple method to calculate the “walk-distance” between 2 hexagons with ISOMETRIC CUBE COORDINATES. I think that it might be worth to be published because it’s very simple and very handy, but isn’t mentioned at your pages yet. At least, I didn’t found it.</p>
+<p>With “walk-distance” I mean how many hexagons do you have to walk over to reach another one.</p>
+<p>Let us call the 2 hexagons H1 and H2 with the isometric cube coordinates (x1,y1,z1) and (x2,y2,z2).</p>
+<p>Now the distance is given by:</p>
+<pre class="simple">   1/2 * [ Abs(x1-x2)+Abs(y1-y2)+Abs(z1-z2) ]</pre>
+<p>You see it is very simple.</p>
+<p>And of course, if one should need the “light-distance” you may use pythagoras. With “light-distance” I mean the distance between the 2 centers of the hexagons, measured in 1 straight line. It’s given by</p>
+<pre class="simple">   [ (x1-x2)^2 + (y1-y1)^2 + (z1-z2)^2 ] ^ (1/2)</pre>
+<p>Regards, <br> Bram</p></section><hr>
+<section><p>Cris Fuhrman writes that the distance can alternatively be expressed as:</p>
+<pre class="simple">distance = max [ abs(x1-x2), abs(y1-y2), abs(z1-z2) ]</pre>
+<p>It appears that when x+y+z = 0, this approach is equivalent to the 1/2 of the sum approach, but I (Amit) was not sure how to prove it.</p></section><hr>
+<section><p>Ariel Birnbaum offers this:</p>
+<pre class="simple">From: Ariel Birnbaum
+To: amitp@cs.stanford.edu
+Subject: Hex Grid - missing proof
+Date: Mon, 22 Jan 2007 13:24:54 +0200</pre>
+<p>Here’s a possible proof:</p>
+<p>If <tt>x=x1-x2</tt>, <tt>y=y1-y2</tt>, <tt>z=z1-z2</tt>, then <tt>x+y+z=x1+y1+z1-(x2+y2-z2)=0</tt>.</p>
+<p>Hence it suffices to show that:</p>
+<pre class="simple"> ( |x| + |y| + |z| ) / 2 = max { |x|, |y|, |z| }, for x+y+z=0.</pre>
+<p>Assume wlog that <tt>max { |x|, |y|, |z| } = |x|</tt>. Also wlog, assume <tt>x</tt> to be nonnegative. If <tt>x=0</tt>, the claim is trivial, so we assume x to be positive. If <tt>y</tt> is also positive, then <tt>z=-(x+y)</tt>, and we see that <tt>|z|=|x|+|y| &gt; |x|</tt> which contradicts the previous assumption. Hence <tt>y</tt> is nonpositive, similarly for <tt>z</tt>. We then have:</p>
+<pre class="simple"> |x|+|y|+|z| = x - y - z = x - (y+z) = x + x = 2x = 2|x|    </pre>
+<p>which proves the claim. For the case where <tt>x</tt> is negative, we just negate the whole vector and proceed as above.</p></section><hr>
+<section><p>Matt Walker offers this:</p>
+<pre class="simple">To: amitp@cs.stanford.edu
+From: Matt Walker &lt;matt.r.walker@gmail.com&gt;
+Subject: Isometric cube coordinate distance proof
+Date: Sun, 18 Feb 2007 09:21:54 -0600</pre>
+<p>I thought I’d lend a hand (I’m not claiming it’s elegant, but I do think it’s a proof):</p>
+<pre class="simple">x1 + y1 + z1 = 0
+x2 + y2 + z2 = 0
+x1 + y1 + z1 = x2 + y2 + z2
+
+show:
+1/2 (|x1 - x2| + |y1 - y2| + |z1 - z2|) = max(|x1 - x2|, |y1 - y2|, |z1 - z2|)
+
+1/2 (|x1 - x2| + |y1 - y2| + |z1 - z2|)
+= 1/2 (|y2 - y1 + z2 - z1| + |y1 - y2| + |z1 - z2|)
+= 1/2 (|-(a + b)| + |a| + |b|)
+= 1/2 (|a + b| + |a| + |b|)
+
+case 1: sign(a) = sign(b)
+
+= 1/2 (|a| + |b| + |a| + |b|)
+= |a| + |b|
+= max(|a| + |b|, |a|, |b|)
+= max(|a + b|, |a|, |b|)
+= max(|x1 - x2|, |y1 - y2|, |z1 - z2|)
+
+case 2: sign(a) ~= sign(b), |a| &gt; |b|
+
+= 1/2 (||a| - |b|| + |a| + |b|)
+= 1/2 (|a| - |b| + |a| + |b|)
+= |a|
+= max(|a| - |b|, |a|, |b|)
+= max(||a| - |b||, |a|, |b|)
+= max(|a + b|, |a|, |b|)
+= max(|x1 - x2|, |y1 - y2|, |z1 - z2|)
+
+case 3: symmetric for |b| &gt; |a|</pre></section></main><div class="below-divider">
+<p>Email me <a class="email" rel="me" href="mailto:redblobgames@gmail.com">redblobgames@gmail.com</a>, or comment here:</p>
+<div class="print-endnote">
+<h3>Links</h3>
+<ol>
+<li>[1]: https://www.redblobgames.com/grids/hexagons/</li>
+<li>[2]: http://www-cs-students.stanford.edu/~amitp/game-programming/grids/</li>
+</ol>
+</div>
+<div class="comments" role="complementary">
+<div id="disqus_thread"><button style="padding:1em;width:100%" onclick="$disqus()">Load comments</button></div>
+<script>
+function disqus_config(){this.page.url="http://www-cs-students.stanford.edu/~amitp/Articles/Hexagon2.html"}
+function $disqus(){$disqus=()=>{};$l("https://blobs.disqus.com/embed.js")}
+if(document.location.hash.match(/#comment/))setTimeout($disqus,0)
+else {new IntersectionObserver(e=>{if(e[0].isIntersecting)$disqus()}).observe(document.getElementById('disqus_thread'))}</script><noscript><a href="https://blobs.disqus.com/?url=http://www-cs-students.stanford.edu/~amitp/Articles/Hexagon2.html">View the discussion thread.</a></noscript>
+</div>
+</div>
+<footer><div><div>
+	       </div></div></footer>
+</body>
+</html>
