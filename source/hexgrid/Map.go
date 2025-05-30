@@ -1,0 +1,214 @@
+package hexgrid
+
+import "math"
+
+type Map struct {
+	Layout Layout                     `json:"layout"`
+	Origin *ScreenPosition            `json:"center"`
+	Size   int                        `json:"size"`
+	Grid   map[int]map[int]map[int]*Hexagon `json:"grid"`
+}
+
+func NewMap(width int, height int, size int) Map {
+
+	var grid Map
+
+	origin := ScreenPosition{width / 2, height / 2}
+
+	grid.Origin = &origin
+	grid.Layout = LayoutFlat
+	grid.Size = size
+	grid.Grid = make(map[int]map[int]map[int]*Hexagon)
+
+	return grid
+
+}
+
+func (self *Map) Add(hexagon *Hexagon) bool {
+
+	var result bool
+
+	q := hexagon.Position.Q
+	r := hexagon.Position.R
+	s := hexagon.Position.S
+
+	_, ok1 := self.Grid[q]
+
+	if ok1 == false {
+		self.Grid[q] = make(map[int]map[int]*Hexagon)
+		ok1 = true
+	}
+
+	_, ok2 := self.Grid[q][r]
+
+	if ok2 == false {
+		self.Grid[q][r] = make(map[int]*Hexagon)
+		ok2 = true
+	}
+
+	_, ok3 := self.Grid[q][r][s]
+
+	if ok3 == false {
+		self.Grid[q][r][s] = hexagon
+		result = true
+	}
+
+	return result
+
+}
+
+func (self *Map) Remove(hexagon *Hexagon) bool {
+
+	var result bool
+
+	q := hexagon.Position.Q
+	r := hexagon.Position.R
+	s := hexagon.Position.S
+
+	_, ok1 := self.Grid[q]
+
+	if ok1 == true {
+
+		_, ok2 := self.Grid[q][r]
+
+		if ok2 == true {
+
+			_, ok3 := self.Grid[q][r][s]
+
+			if ok3 == true {
+				delete(self.Grid[q][r], s)
+				result = true
+			}
+
+		}
+
+	}
+
+	return result
+
+}
+
+func (self *Map) SetOrigin(position ScreenPosition) bool {
+
+	var result bool
+
+	self.Origin = &position
+
+	return result
+
+}
+
+func (self *Map) ToScreenPosition(position HexPosition) ScreenPosition {
+
+	var translated ScreenPosition
+
+	if self.Layout == LayoutFlat {
+
+		orientation := orientation_flat
+		x := float64(orientation.F0 * float64(position.Q) + orientation.F1 * float64(position.R)) * float64(self.Size)
+		y := float64(orientation.F2 * float64(position.Q) + orientation.F3 * float64(position.R)) * float64(self.Size)
+
+		translated.X = self.Origin.X + int(x)
+		translated.Y = self.Origin.Y + int(y)
+
+	} else if self.Layout == LayoutPointy {
+
+		orientation := orientation_pointy
+		x := float64(orientation.F0 * float64(position.Q) + orientation.F1 * float64(position.R)) * float64(self.Size)
+		y := float64(orientation.F2 * float64(position.Q) + orientation.F3 * float64(position.R)) * float64(self.Size)
+
+		translated.X = self.Origin.X + int(x)
+		translated.Y = self.Origin.Y + int(y)
+
+	}
+
+	return translated
+
+}
+
+func (self *Map) ToHexPosition(position ScreenPosition) HexPosition {
+
+	var translated HexPosition
+
+	tmp := ScreenPosition{
+		X: int((position.X - self.Origin.X) / self.Size),
+		Y: int((position.Y - self.Origin.Y) / self.Size),
+	}
+
+	if self.Layout == LayoutFlat {
+
+		orientation := orientation_flat
+
+		q := float64(orientation.B0 * float64(tmp.X) + orientation.B1 * float64(tmp.Y))
+		r := float64(orientation.B2 * float64(tmp.X) + orientation.B3 * float64(tmp.Y))
+		s := float64(-1 * q - r)
+
+		q_rounded := math.Round(q)
+		r_rounded := math.Round(r)
+		s_rounded := math.Round(s)
+
+		q_diff := math.Abs(q_rounded - q)
+		r_diff := math.Abs(r_rounded - r)
+		s_diff := math.Abs(s_rounded - s)
+
+		if q_diff > r_diff && q_diff > s_diff {
+
+			translated.Q = int(-1 * r - s)
+			translated.R = int(r)
+			translated.S = int(s)
+
+		} else if r_diff > s_diff {
+
+			translated.Q = int(q)
+			translated.R = int(-1 * q - s)
+			translated.S = int(s)
+
+		} else {
+
+			translated.Q = int(q)
+			translated.R = int(r)
+			translated.S = int(-1 * q - r)
+
+		}
+
+	} else if self.Layout == LayoutPointy {
+
+		orientation := orientation_pointy
+
+		q := float64(orientation.B0 * float64(tmp.X) + orientation.B1 * float64(tmp.Y))
+		r := float64(orientation.B2 * float64(tmp.X) + orientation.B3 * float64(tmp.Y))
+		s := float64(-1 * q - r)
+
+		q_rounded := math.Round(q)
+		r_rounded := math.Round(r)
+		s_rounded := math.Round(s)
+
+		q_diff := math.Abs(q_rounded - q)
+		r_diff := math.Abs(r_rounded - r)
+		s_diff := math.Abs(s_rounded - s)
+
+		if q_diff > r_diff && q_diff > s_diff {
+
+			translated.Q = int(-1 * r - s)
+			translated.R = int(r)
+			translated.S = int(s)
+
+		} else if r_diff > s_diff {
+
+			translated.Q = int(q)
+			translated.R = int(-1 * q - s)
+			translated.S = int(s)
+
+		} else {
+
+			translated.Q = int(q)
+			translated.R = int(r)
+			translated.S = int(-1 * q - r)
+
+		}
+
+	}
+
+	return translated
+
+}

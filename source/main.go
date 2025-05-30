@@ -3,6 +3,7 @@ package main
 import "github.com/cookiengineer/gooey/bindings/animations"
 import "github.com/cookiengineer/gooey/bindings/canvas2d"
 import "github.com/cookiengineer/gooey/bindings/dom"
+import "example/hexgrid"
 import "time"
 
 func main() {
@@ -37,6 +38,16 @@ func main() {
 		context.ClosePath()
 
 	})
+
+	hexagons := []hexgrid.Hexagon{
+		hexgrid.NewHexagon(0,  0, 0),
+		hexgrid.NewHexagon(1, -1, 0),
+	}
+	grid := hexgrid.NewMap(1024, 640, 64)
+
+	for _, hexagon := range hexagons {
+		grid.Add(&hexagon)
+	}
 
 	for true {
 
