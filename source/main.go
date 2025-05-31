@@ -2,6 +2,7 @@ package main
 
 import "github.com/cookiengineer/gooey/bindings/animations"
 import "github.com/cookiengineer/gooey/bindings/canvas2d"
+import "github.com/cookiengineer/gooey/bindings/console"
 import "github.com/cookiengineer/gooey/bindings/dom"
 import "example/hexgrid"
 import "time"
@@ -11,9 +12,26 @@ func main() {
 	element := dom.Document.QuerySelector("canvas")
 	canvas  := canvas2d.ToCanvas(element)
 
+	hexagons := []hexgrid.Hexagon{
+		hexgrid.NewHexagon( 0,  0,  0),
+		hexgrid.NewHexagon( 1, -1,  0),
+		hexgrid.NewHexagon(-1,  1,  0),
+		hexgrid.NewHexagon( 0,  1, -1),
+		hexgrid.NewHexagon( 0, -1,  1),
+		hexgrid.NewHexagon( 1,  0, -1),
+		hexgrid.NewHexagon(-1,  0,  1),
+	}
+	grid := hexgrid.NewMap(1024, 640, 64)
+
+	for _, hexagon := range hexagons {
+		grid.Add(&hexagon)
+	}
+
+	renderer := hexgrid.NewRenderer(canvas, &grid)
+
 	animations.RequestAnimationFrame(func(timestamp float64) {
 
-		context := canvas.GetContext()
+		context := renderer.Canvas.GetContext()
 
 		context.BeginPath()
 		context.SetFillStyleColor("#ff0000")
@@ -37,17 +55,16 @@ func main() {
 		context.Stroke()
 		context.ClosePath()
 
+		// Render Hexagons on top
+		renderer.Render()
+
 	})
 
-	hexagons := []hexgrid.Hexagon{
-		hexgrid.NewHexagon(0,  0, 0),
-		hexgrid.NewHexagon(1, -1, 0),
-	}
-	grid := hexgrid.NewMap(1024, 640, 64)
+	canvas.Element.AddEventListener("mousemove", dom.ToEventListener(func(event *dom.Event) {
 
-	for _, hexagon := range hexagons {
-		grid.Add(&hexagon)
-	}
+		console.Log(event)
+
+	}))
 
 	for true {
 

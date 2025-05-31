@@ -3,9 +3,11 @@ package hexgrid
 import "math"
 
 type Map struct {
-	Layout Layout                     `json:"layout"`
-	Origin *ScreenPosition            `json:"center"`
-	Size   int                        `json:"size"`
+	Layout Layout                           `json:"layout"`
+	Origin *ScreenPosition                  `json:"center"`
+	Width  int                              `json:"width"`
+	Height int                              `json:"height"`
+	Size   int                              `json:"size"`
 	Grid   map[int]map[int]map[int]*Hexagon `json:"grid"`
 }
 
@@ -15,8 +17,10 @@ func NewMap(width int, height int, size int) Map {
 
 	origin := ScreenPosition{width / 2, height / 2}
 
-	grid.Origin = &origin
 	grid.Layout = LayoutFlat
+	grid.Origin = &origin
+	grid.Width = width
+	grid.Height = height
 	grid.Size = size
 	grid.Grid = make(map[int]map[int]map[int]*Hexagon)
 
@@ -51,6 +55,68 @@ func (self *Map) Add(hexagon *Hexagon) bool {
 	if ok3 == false {
 		self.Grid[q][r][s] = hexagon
 		result = true
+	}
+
+	return result
+
+}
+
+type Callback func(*Hexagon)
+
+func (self *Map) Each(callback Callback) {
+
+	min_q := int(-1 * float64(self.Width) / float64(self.Size))
+	max_q := int( 1 * float64(self.Width) / float64(self.Size))
+
+	// This is somewhat the actual distance, but angle changes based on layout
+	// distance := math.Sqrt(math.Pow(float64(width) / 2, 2) + math.Pow(float64(height) / 2))
+
+	min_r := int(-1 * (float64(self.Height) / 2) / float64(self.Size))
+	max_r := int( 1 * (float64(self.Height) / 2) / float64(self.Size))
+
+	min_s := int(-1 * (float64(self.Width) / 2) / float64(self.Size))
+	max_s := int( 1 * (float64(self.Width) / 2) / float64(self.Size))
+
+	for q := min_q; q <= max_q; q++ {
+
+		for r := min_r; r <= max_r; r++ {
+
+			for s := min_s; s <= max_s; s++ {
+
+				tmp := self.Get(q, r, s)
+
+				if tmp != nil {
+					callback(tmp)
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+func (self *Map) Get(q int, r int, s int) *Hexagon {
+
+	var result *Hexagon = nil
+
+	_, ok1 := self.Grid[q]
+
+	if ok1 == true {
+
+		_, ok2 := self.Grid[q][r]
+
+		if ok2 == true {
+
+			tmp, ok3 := self.Grid[q][r][s]
+
+			if ok3 == true {
+				result = tmp
+			}
+
+		}
+
 	}
 
 	return result
@@ -123,6 +189,47 @@ func (self *Map) ToScreenPosition(position HexPosition) ScreenPosition {
 	}
 
 	return translated
+
+}
+
+func (self *Map) ToScreenPolygon(position HexPosition) []ScreenPosition {
+
+	result := make([]ScreenPosition, 6)
+	center := self.ToScreenPosition(position)
+
+	if self.Layout == LayoutFlat {
+
+		orientation := orientation_flat
+
+		for corner := 0; corner < 6; corner++ {
+
+			angle := float64(2.0 * math.Pi * (orientation.StartAngle + float64(corner)) / 6.0)
+
+			result[corner] = ScreenPosition{
+				X: int(float64(center.X) + float64(float64(self.Size) * math.Cos(angle))),
+				Y: int(float64(center.Y) + float64(float64(self.Size) * math.Sin(angle))),
+			}
+
+		}
+
+	} else if self.Layout == LayoutPointy {
+
+		orientation :=  orientation_pointy
+
+		for corner := 0; corner < 6; corner++ {
+
+			angle := float64(2.0 * math.Pi * (orientation.StartAngle + float64(corner)) / 6.0)
+
+			result[corner] = ScreenPosition{
+				X: int(float64(center.X) + float64(float64(self.Size) * math.Cos(angle))),
+				Y: int(float64(center.Y) + float64(float64(self.Size) * math.Sin(angle))),
+			}
+
+		}
+
+	}
+
+	return result
 
 }
 

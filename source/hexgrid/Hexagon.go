@@ -46,3 +46,4 @@ func (hexagon *Hexagon) SetPosition(q int, r int, s int) bool {
 	return result
 
 }
+
