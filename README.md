@@ -1,10 +1,25 @@
 
-# Hexagon Map Idea
+# Cyber Battlemap
 
-- [ ] Plot nodes on a hexagon map
-- [ ] Use cube coordinate system
-- [ ] Zoomed out view shows ASNs and hops to ASNs as qrs distance
-- [ ] Zoomed in view shows ASN in local perspective (LAN addressed machines)
-- [ ] Path planning from/to implies network hops
-- [ ] Maybe it makes sense to use qrs for distance of A/B/C IPv4 class subnets?
+This project aims to make cyber intelligence and cyber defense more approachable
+as a live battlemap so that both the Blueteam and Redteam side can interact with
+more measurable live data and interaction with the conquered systems.
+
+
+## Assumptions
+
+- Cyber Defense on the Blueteam side is only reactionary
+- Cyber Defense on the Redteam side is inefficient due to varying degrees of scan results
+- Alerts will just flood the users and make things harder and not easier
+- Both sides have a data gathering and data correlation problem
+- Dashboards should ease up correlation of results
+- Dashboards should represent the live state of networks and systems
+
+## Opinions
+
+- Live inspection of systems must be possible at all times
+- Live inspection of attack paths must be possible at all times
+- Results must have a confidence factor to represent (un-)reliable results
+- Intel/Recon/Conquer/Persistance phases should be represented with attack paths
+- Attack Paths should reflect both likeliness and feasibility
 
