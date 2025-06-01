@@ -13,21 +13,7 @@ func HandleSearches(cache *Cache) {
 			name   := request.PathValue("name")
 			system := cache.GetSystem(name)
 
-			vulnerabilities := make([]string, 0)
-
-			for name, vulnerability := range cache.Vulnerabilities {
-
-				for _, pkg := range system.Packages {
-
-					if vulnerability.MatchesPackage(pkg) {
-						fmt.Println(name)
-						vulnerabilities = append(vulnerabilities, name)
-					}
-
-				}
-
-			}
-
+			vulnerabilities := cache.QueryVulnerabilitiesByDistribution(system.Distribution.Name, system.Distribution.Version)
 			payload, err := json.MarshalIndent(vulnerabilities, "", "\t")
 
 			if err == nil {

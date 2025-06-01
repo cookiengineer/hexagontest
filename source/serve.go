@@ -1,82 +1,51 @@
 package main
 
-import "battlemap/structs"
 import "battlemap/server"
-import "encoding/json"
+import "embed"
+import "errors"
 import "fmt"
 import "io/fs"
 import "log"
 import "net/http"
 import "os"
+import "strings"
+
+//go:embed public/*
+var EMBED_FS embed.FS
 
 func main() {
 
-	cache := server.NewCache()
-	fsys := os.DirFS("public")
-	fsrv := http.FileServer(http.FS(fsys))
+	cwd, err0 := os.Getwd()
 
-	data_fsys := os.DirFS("../data")
+	if err0 == nil {
 
-	files1, err1 := fs.ReadDir(data_fsys, "systems")
-
-	if err1 == nil {
-
-		for _, file := range files1 {
-
-			buffer, err11 := fs.ReadFile(data_fsys, "systems/" + file.Name())
-
-			if err11 == nil {
-
-				var system structs.System
-
-				err12 := json.Unmarshal(buffer, &system)
-
-				if err12 == nil {
-					cache.SetSystem(system)
-				}
-
-			}
-
+		if strings.HasSuffix(cwd, "/source") {
+			// go run call
+			cwd = cwd[0:len(cwd)-7]
 		}
 
-	}
+		cache := server.NewCache(cwd + "/data")
+		fsys, _ := fs.Sub(EMBED_FS, "public")
+		fsrv := http.FileServer(http.FS(fsys))
 
-	files2, err2 := fs.ReadDir(data_fsys, "vulnerabilities")
+		cache.Init()
 
-	if err2 == nil {
+		http.Handle("/", fsrv)
 
-		for _, file := range files2 {
+		server.HandleSystems(cache)
+		server.HandleVulnerabilities(cache)
+		server.HandleSearches(cache)
 
-			buffer, err21 := fs.ReadFile(data_fsys, "vulnerabilities/" + file.Name())
+		fmt.Println("Listening on http://localhost:3000")
 
-			if err21 == nil {
+		err := http.ListenAndServe(":3000", nil)
 
-				var vulnerability structs.Vulnerability
-
-				err22 := json.Unmarshal(buffer, &vulnerability)
-
-				if err22 == nil {
-					cache.SetVulnerability(vulnerability)
-				}
-
-			}
-
+		if err != nil {
+			log.Fatal(err)
 		}
 
-	}
-
-	http.Handle("/", fsrv)
-
-	server.HandleSystems(cache)
-	server.HandleVulnerabilities(cache)
-	server.HandleSearches(cache)
-
-	fmt.Println("Listening on http://localhost:3000")
-
-	err := http.ListenAndServe(":3000", nil)
-
-	if err != nil {
-		log.Fatal(err)
+	} else {
+		log.Fatal(errors.New("Inaccessible process working directory"))
 	}
 
 }
