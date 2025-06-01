@@ -3,7 +3,8 @@ package hexgrid
 import "battlemap/structs"
 
 type Hexagon struct {
-	Position *HexPosition `json:"position"`
+	Position *HexPosition    `json:"position"`
+	Scale    float64         `json:"scale"`
 	System   *structs.System `json:"system"`
 }
 
@@ -14,6 +15,7 @@ func NewHexagon(q int, r int, s int) Hexagon {
 	position := HexPosition{0,0,0}
 
 	hexagon.Position = &position
+	hexagon.Scale = 1.0
 	hexagon.System = nil
 
 	hexagon.SetPosition(q, r, s)

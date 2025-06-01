@@ -8,7 +8,6 @@ import "github.com/cookiengineer/gooey/bindings/fetch"
 import "battlemap/hexgrid"
 import "battlemap/structs"
 import "encoding/json"
-import "math"
 import "time"
 
 func main() {
@@ -26,7 +25,7 @@ func main() {
 		hexgrid.NewHexagon( 1,  0, -1),
 		hexgrid.NewHexagon(-1,  0,  1),
 	}
-	grid := hexgrid.NewMap(1024, 640, 64)
+	grid := hexgrid.NewGrid(1024, 640, 64)
 
 	for _, hexagon := range hexagons {
 		grid.Add(&hexagon)
@@ -44,7 +43,7 @@ func main() {
 
 		json.Unmarshal(response.Body, &system_names)
 
-		for i, name := range system_names {
+		for _, name := range system_names {
 
 			response2, err2 := fetch.Fetch("http://localhost:3000/api/systems/" + name, &fetch.Request{
 				Method: fetch.MethodGet,
@@ -58,9 +57,6 @@ func main() {
 				json.Unmarshal(response2.Body, &system)
 
 				console.Log(system)
-
-				systemHex := hexgrid.NewSystemHexagon(&system, i, 0, 0)
-				grid.Add(&systemHex.Hexagon)  // Add the base Hexagon part to the grid
 
 			}
 
@@ -93,18 +89,15 @@ func main() {
 
 	}))
 
-	var screen_position hexgrid.ScreenPosition
-
 	canvas.Element.AddEventListener("mousemove", dom.ToEventListener(func(event *dom.Event) {
 
 		bounding_rect   := canvas.Element.GetBoundingClientRect()
-		screen_position = hexgrid.ScreenPosition{
+		screen_position := hexgrid.ScreenPosition{
 			X: event.Value.Get("clientX").Int() - bounding_rect.X,
 			Y: event.Value.Get("clientY").Int() - bounding_rect.Y,
 		}
 
 		grid_position := grid.ToHexPosition(screen_position)
-
 		hexagon := grid.Get(grid_position.Q, grid_position.R, grid_position.S)
 
 		if hexagon != nil {
@@ -118,16 +111,7 @@ func main() {
 	for true {
 
 		animations.RequestAnimationFrame(func(timestamp float64) {
-
 			renderer.Render()
-
-			context := renderer.Context
-			context.BeginPath()
-			context.SetFillStyleColor("#ff0000")
-			context.Arc(screen_position.X, screen_position.Y, 5, 0, 2.0 * math.Pi, false);
-			context.Fill()
-			context.ClosePath()
-
 		})
 
 		// Do Nothing
