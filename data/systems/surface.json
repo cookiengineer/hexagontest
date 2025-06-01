@@ -1,0 +1,1169 @@
+{
+    "name": "3971b52ceebf43e7b960010b2f976e30",
+    "hostname": "OlivaSurface",
+    "datetime": "2025-05-31 15:27:04",
+    "distribution": {
+            "name": "ubuntu-jammy",
+            "version": "22.04",
+            "kernel": "linux",
+            "kernel_architecture": "x86_64",
+            "kernel_modules": [],
+            "kernel_version": "5.15.153.1-microsoft-standard-WSL2",
+            "manager": "apt",
+            "vendor": "ubuntu-jammy"
+    },
+    "fingerprint": {
+            "country": "CZ",
+            "locale": "",
+            "timezone": "Europe/Prague",
+            "token": ""
+    },
+    "bios": {
+            "name": "",
+            "bus": "",
+            "system": null,
+            "subsystem": null
+    },
+    "board": {
+            "name": "",
+            "bus": "",
+            "system": null,
+            "subsystem": null
+    },
+    "devices": [
+            {
+                    "name": "Basic Render Driver",
+                    "bus": "pci",
+                    "system": {
+                            "device": "008e",
+                            "vendor": "1414",
+                            "name": "Basic Render Driver"
+                    },
+                    "subsystem": {
+                            "device": "0000",
+                            "vendor": "0000",
+                            "name": ""
+                    }
+            },
+            {
+                    "name": "Virtio file system",
+                    "bus": "pci",
+                    "system": {
+                            "device": "105a",
+                            "vendor": "1af4",
+                            "name": "Virtio file system"
+                    },
+                    "subsystem": {
+                            "device": "0040",
+                            "vendor": "1af4",
+                            "name": ""
+                    }
+            },
+            {
+                    "name": "Virtio 1.0 console",
+                    "bus": "pci",
+                    "system": {
+                            "device": "1043",
+                            "vendor": "1af4",
+                            "name": "Virtio 1.0 console"
+                    },
+                    "subsystem": {
+                            "device": "0040",
+                            "vendor": "1af4",
+                            "name": ""
+                    }
+            },
+            {
+                    "name": "Linux Foundation 2.0 root hub",
+                    "bus": "usb",
+                    "system": {
+                            "device": "0002",
+                            "vendor": "1d6b",
+                            "name": "2.0 root hub"
+                    },
+                    "subsystem": null
+            },
+            {
+                    "name": "Linux Foundation 3.0 root hub",
+                    "bus": "usb",
+                    "system": {
+                            "device": "0003",
+                            "vendor": "1d6b",
+                            "name": "3.0 root hub"
+                    },
+                    "subsystem": null
+            }
+    ],
+    "drives": null,
+    "incidents": null,
+    "mitigations": [],
+    "networks": [
+            {
+                    "name": "lo",
+                    "subnets": [
+                            {
+                                    "name": "",
+                                    "country": "",
+                                    "address": "127.0.0.1",
+                                    "scope": "private",
+                                    "type": "ipv4",
+                                    "prefix": 8
+                            },
+                            {
+                                    "name": "",
+                                    "country": "",
+                                    "address": "10.255.255.254",
+                                    "scope": "private",
+                                    "type": "ipv4",
+                                    "prefix": 32
+                            },
+                            {
+                                    "name": "",
+                                    "country": "",
+                                    "address": "0000:0000:0000:0000:0000:0000:0000:0001",
+                                    "scope": "private",
+                                    "type": "ipv6",
+                                    "prefix": 128
+                            }
+                    ]
+            },
+            {
+                    "name": "eth0",
+                    "subnets": [
+                            {
+                                    "name": "",
+                                    "country": "",
+                                    "address": "172.18.67.23",
+                                    "scope": "private",
+                                    "type": "ipv4",
+                                    "prefix": 20
+                            },
+                            {
+                                    "name": "",
+                                    "country": "",
+                                    "address": "fe80:0000:0000:0000:0215:5dff:fe67:c2d9",
+                                    "scope": "private",
+                                    "type": "ipv6",
+                                    "prefix": 64
+                            }
+                    ]
+            }
+    ],
+    "packages": null,
+    "programs": null,
+    "responses": [],
+    "services": null,
+    "antiques": [],
+    "updates": [
+            {
+                    "name": "alsa-ucm-conf",
+                    "version": "0:1.2.6~3-1ubuntu1-12",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "apport",
+                    "version": "0:2.20.11~0ubuntu82-7",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "apt-transport-https",
+                    "version": "0:2.4.14",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "apt-utils",
+                    "version": "0:2.4.14",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "apt",
+                    "version": "0:2.4.14",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "base-files",
+                    "version": "0:12.0.0~ubuntu4-7",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "distro-info-data",
+                    "version": "0:0.52.0~ubuntu0-9",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "dmidecode",
+                    "version": "0:3.3.3~ubuntu0-2",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "dmsetup",
+                    "version": "2:1.2.175~2-1ubuntu5",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "gir1.2-packagekitglib-1.0",
+                    "version": "0:1.2.5~2ubuntu3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libapt-pkg6.0",
+                    "version": "0:2.4.14",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libc-bin",
+                    "version": "0:2.35.0~ubuntu3-10",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libc-dev-bin",
+                    "version": "0:2.35.0~ubuntu3-10",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libc-devtools",
+                    "version": "0:2.35.0~ubuntu3-10",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libc6-dbg",
+                    "version": "0:2.35.0~ubuntu3-10",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libc6-dev",
+                    "version": "0:2.35.0~ubuntu3-10",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libc6-i386",
+                    "version": "0:2.35.0~ubuntu3-10",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libc6",
+                    "version": "0:2.35.0~ubuntu3-10",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libcryptsetup12",
+                    "version": "2:2.4.3~1ubuntu1-3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libdevmapper1.02.1",
+                    "version": "2:1.2.175~2-1ubuntu5",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libgbm1",
+                    "version": "0:23.2.1~1ubuntu3-1-22-04-3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libgl1-mesa-dri",
+                    "version": "0:23.2.1~1ubuntu3-1-22-04-3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libglapi-mesa",
+                    "version": "0:23.2.1~1ubuntu3-1-22-04-3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libglx-mesa0",
+                    "version": "0:23.2.1~1ubuntu3-1-22-04-3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libgssapi-krb5-2",
+                    "version": "0:1.19.2~2ubuntu0-7",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libk5crypto3",
+                    "version": "0:1.19.2~2ubuntu0-7",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libkrb5-3",
+                    "version": "0:1.19.2~2ubuntu0-7",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libkrb5support0",
+                    "version": "0:1.19.2~2ubuntu0-7",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libldap-2.5-0",
+                    "version": "0:2.5.19~dfsg-0ubuntu0-22-04-1",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libldap-common",
+                    "version": "0:2.5.19~dfsg-0ubuntu0-22-04-1",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libnss-systemd",
+                    "version": "0:249.11.0~ubuntu3-15",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libnvidia-compute-535",
+                    "version": "0:535.247.1~0ubuntu1",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libpackagekit-glib2-18",
+                    "version": "0:1.2.5~2ubuntu3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libpam-modules-bin",
+                    "version": "0:1.4.0~11ubuntu2-5",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libpam-modules",
+                    "version": "0:1.4.0~11ubuntu2-5",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libpam-runtime",
+                    "version": "0:1.4.0~11ubuntu2-5",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libpam-systemd",
+                    "version": "0:249.11.0~ubuntu3-15",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libpam0g",
+                    "version": "0:1.4.0~11ubuntu2-5",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libpcap0.8",
+                    "version": "0:1.10.1~4ubuntu1-22-04-1",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libseccomp2",
+                    "version": "0:2.5.3~2ubuntu3-22-04-1",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libsystemd0",
+                    "version": "0:249.11.0~ubuntu3-15",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "libudev1",
+                    "version": "0:249.11.0~ubuntu3-15",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "locales",
+                    "version": "0:2.35.0~ubuntu3-10",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "mesa-va-drivers",
+                    "version": "0:23.2.1~1ubuntu3-1-22-04-3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "mesa-vdpau-drivers",
+                    "version": "0:23.2.1~1ubuntu3-1-22-04-3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "motd-news-config",
+                    "version": "0:12.0.0~ubuntu4-7",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "net-tools",
+                    "version": "0:1.60.0+0eebece~git20181103-1ubuntu5-4",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "nodejs",
+                    "version": "0:18.20.8~1nodesource1",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "packagekit-tools",
+                    "version": "0:1.2.5~2ubuntu3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "packagekit",
+                    "version": "0:1.2.5~2ubuntu3",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "pci.ids",
+                    "version": "0:0.0.2022~01-22-1ubuntu0-1",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "python-apt-common",
+                    "version": "0:2.4.0~ubuntu4",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "python3-apport",
+                    "version": "0:2.20.11~0ubuntu82-7",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "python3-apt",
+                    "version": "0:2.4.0~ubuntu4",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "python3-distupgrade",
+                    "version": "1:22.4.20",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "python3-pkg-resources",
+                    "version": "0:59.6.0~1-2ubuntu0-22-04-3",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "python3-problem-report",
+                    "version": "0:2.20.11~0ubuntu82-7",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "python3-update-manager",
+                    "version": "1:22.4.21",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "snapd",
+                    "version": "0:2.67.1~22-04",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "systemd-sysv",
+                    "version": "0:249.11.0~ubuntu3-15",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "systemd-timesyncd",
+                    "version": "0:249.11.0~ubuntu3-15",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "systemd",
+                    "version": "0:249.11.0~ubuntu3-15",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "tzdata",
+                    "version": "0:2025.0.0b~0ubuntu0-22-04-1",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "ubuntu-advantage-tools",
+                    "version": "0:35.1.0~ubuntu0-22-04",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "ubuntu-minimal",
+                    "version": "0:1.481.4",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "ubuntu-pro-client-l10n",
+                    "version": "0:35.1.0~ubuntu0-22-04",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "ubuntu-release-upgrader-core",
+                    "version": "1:22.4.20",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "ubuntu-standard",
+                    "version": "0:1.481.4",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "ubuntu-wsl",
+                    "version": "0:1.481.4",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "udev",
+                    "version": "0:249.11.0~ubuntu3-15",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "update-manager-core",
+                    "version": "1:22.4.21",
+                    "architecture": "any",
+                    "manager": "apt",
+                    "url": ""
+            },
+            {
+                    "name": "wsl-setup",
+                    "version": "0:0.5.4~22-04",
+                    "architecture": "x86_64",
+                    "manager": "apt",
+                    "url": ""
+            }
+    ],
+    "users": [
+            {
+                    "id": 105,
+                    "name": "_apt",
+                    "password": "*",
+                    "folder": "/nonexistent",
+                    "groups": [
+                            {
+                                    "id": 65534,
+                                    "name": "nogroup",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "user"
+            },
+            {
+                    "id": 34,
+                    "name": "backup",
+                    "password": "*",
+                    "folder": "/var/backups",
+                    "groups": [
+                            {
+                                    "id": 34,
+                                    "name": "backup",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 2,
+                    "name": "bin",
+                    "password": "*",
+                    "folder": "/bin",
+                    "groups": [
+                            {
+                                    "id": 2,
+                                    "name": "bin",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 1,
+                    "name": "daemon",
+                    "password": "*",
+                    "folder": "/usr/sbin",
+                    "groups": [
+                            {
+                                    "id": 1,
+                                    "name": "daemon",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 5,
+                    "name": "games",
+                    "password": "*",
+                    "folder": "/usr/games",
+                    "groups": [
+                            {
+                                    "id": 60,
+                                    "name": "games",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 41,
+                    "name": "gnats",
+                    "password": "*",
+                    "folder": "/var/lib/gnats",
+                    "groups": [
+                            {
+                                    "id": 41,
+                                    "name": "gnats",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 39,
+                    "name": "irc",
+                    "password": "*",
+                    "folder": "/run/ircd",
+                    "groups": [
+                            {
+                                    "id": 39,
+                                    "name": "irc",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 1000,
+                    "name": "krystof",
+                    "password": "$y$j9T$p1q6BeYCsid5vFENvfKO.1$xsp04vl0Oen.C4bRAEyhh6w2HEWsNHXfTBUYmyCGOWA",
+                    "folder": "/home/krystof",
+                    "groups": [
+                            {
+                                    "id": 1000,
+                                    "name": "krystof",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 4,
+                                    "name": "adm",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 20,
+                                    "name": "dialout",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 24,
+                                    "name": "cdrom",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 25,
+                                    "name": "floppy",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 27,
+                                    "name": "sudo",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 29,
+                                    "name": "audio",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 30,
+                                    "name": "dip",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 44,
+                                    "name": "video",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 46,
+                                    "name": "plugdev",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 116,
+                                    "name": "netdev",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 1001,
+                                    "name": "docker",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/bin/bash",
+                    "type": "user"
+            },
+            {
+                    "id": 38,
+                    "name": "list",
+                    "password": "*",
+                    "folder": "/var/list",
+                    "groups": [
+                            {
+                                    "id": 38,
+                                    "name": "list",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 7,
+                    "name": "lp",
+                    "password": "*",
+                    "folder": "/var/spool/lpd",
+                    "groups": [
+                            {
+                                    "id": 7,
+                                    "name": "lp",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 8,
+                    "name": "mail",
+                    "password": "*",
+                    "folder": "/var/mail",
+                    "groups": [
+                            {
+                                    "id": 8,
+                                    "name": "mail",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 6,
+                    "name": "man",
+                    "password": "*",
+                    "folder": "/var/cache/man",
+                    "groups": [
+                            {
+                                    "id": 12,
+                                    "name": "man",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 102,
+                    "name": "messagebus",
+                    "password": "*",
+                    "folder": "/nonexistent",
+                    "groups": [
+                            {
+                                    "id": 105,
+                                    "name": "messagebus",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 9,
+                    "name": "news",
+                    "password": "*",
+                    "folder": "/var/spool/news",
+                    "groups": [
+                            {
+                                    "id": 9,
+                                    "name": "news",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 65534,
+                    "name": "nobody",
+                    "password": "*",
+                    "folder": "/nonexistent",
+                    "groups": [
+                            {
+                                    "id": 65534,
+                                    "name": "nogroup",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 13,
+                    "name": "proxy",
+                    "password": "*",
+                    "folder": "/bin",
+                    "groups": [
+                            {
+                                    "id": 13,
+                                    "name": "proxy",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 0,
+                    "name": "root",
+                    "password": "*",
+                    "folder": "/root",
+                    "groups": [
+                            {
+                                    "id": 0,
+                                    "name": "root",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/bin/bash",
+                    "type": "program"
+            },
+            {
+                    "id": 4,
+                    "name": "sync",
+                    "password": "*",
+                    "folder": "/bin",
+                    "groups": [
+                            {
+                                    "id": 65534,
+                                    "name": "nogroup",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/bin/sync",
+                    "type": "program"
+            },
+            {
+                    "id": 3,
+                    "name": "sys",
+                    "password": "*",
+                    "folder": "/dev",
+                    "groups": [
+                            {
+                                    "id": 3,
+                                    "name": "sys",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 104,
+                    "name": "syslog",
+                    "password": "*",
+                    "folder": "/home/syslog",
+                    "groups": [
+                            {
+                                    "id": 111,
+                                    "name": "syslog",
+                                    "password": "",
+                                    "type": "user"
+                            },
+                            {
+                                    "id": 4,
+                                    "name": "adm",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "user"
+            },
+            {
+                    "id": 100,
+                    "name": "systemd-network",
+                    "password": "*",
+                    "folder": "/run/systemd",
+                    "groups": [
+                            {
+                                    "id": 102,
+                                    "name": "systemd-network",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 101,
+                    "name": "systemd-resolve",
+                    "password": "*",
+                    "folder": "/run/systemd",
+                    "groups": [
+                            {
+                                    "id": 103,
+                                    "name": "systemd-resolve",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 103,
+                    "name": "systemd-timesync",
+                    "password": "*",
+                    "folder": "/run/systemd",
+                    "groups": [
+                            {
+                                    "id": 106,
+                                    "name": "systemd-timesync",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 107,
+                    "name": "tcpdump",
+                    "password": "*",
+                    "folder": "/nonexistent",
+                    "groups": [
+                            {
+                                    "id": 113,
+                                    "name": "tcpdump",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "user"
+            },
+            {
+                    "id": 10,
+                    "name": "uucp",
+                    "password": "*",
+                    "folder": "/var/spool/uucp",
+                    "groups": [
+                            {
+                                    "id": 10,
+                                    "name": "uucp",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            },
+            {
+                    "id": 106,
+                    "name": "uuidd",
+                    "password": "*",
+                    "folder": "/run/uuidd",
+                    "groups": [
+                            {
+                                    "id": 112,
+                                    "name": "uuidd",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "user"
+            },
+            {
+                    "id": 33,
+                    "name": "www-data",
+                    "password": "*",
+                    "folder": "/var/www",
+                    "groups": [
+                            {
+                                    "id": 33,
+                                    "name": "www-data",
+                                    "password": "",
+                                    "type": "user"
+                            }
+                    ],
+                    "shell": "/usr/sbin/nologin",
+                    "type": "program"
+            }
+    ]
+}
