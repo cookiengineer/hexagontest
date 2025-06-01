@@ -4,12 +4,17 @@ import "github.com/cookiengineer/gooey/bindings/animations"
 import "github.com/cookiengineer/gooey/bindings/canvas2d"
 import "github.com/cookiengineer/gooey/bindings/console"
 import "github.com/cookiengineer/gooey/bindings/dom"
-import "example/hexgrid"
+import "github.com/cookiengineer/gooey/bindings/fetch"
+import "battlemap/hexgrid"
+import "battlemap/structs"
+import "encoding/json"
+import "math"
 import "time"
 
 func main() {
 
 	element := dom.Document.QuerySelector("canvas")
+	sidebar := dom.Document.QuerySelector("aside")
 	canvas  := canvas2d.ToCanvas(element)
 
 	hexagons := []hexgrid.Hexagon{
@@ -27,46 +32,103 @@ func main() {
 		grid.Add(&hexagon)
 	}
 
+
+	response, err1 := fetch.Fetch("http://localhost:3000/api/systems", &fetch.Request{
+		Method: fetch.MethodGet,
+		Mode:   fetch.ModeSameOrigin,
+	})
+
+	if err1 == nil {
+
+		var system_names []string
+
+		json.Unmarshal(response.Body, &system_names)
+
+		for i, name := range system_names {
+
+			response2, err2 := fetch.Fetch("http://localhost:3000/api/systems/" + name, &fetch.Request{
+				Method: fetch.MethodGet,
+				Mode:   fetch.ModeSameOrigin,
+			})
+
+			if err2 == nil {
+
+				var system structs.System
+
+				json.Unmarshal(response2.Body, &system)
+
+				console.Log(system)
+
+				systemHex := hexgrid.NewSystemHexagon(&system, i, 0, 0)
+				grid.Add(&systemHex.Hexagon)  // Add the base Hexagon part to the grid
+
+			}
+
+		}
+	}
+
 	renderer := hexgrid.NewRenderer(canvas, &grid)
 
-	animations.RequestAnimationFrame(func(timestamp float64) {
+	canvas.Element.AddEventListener("mouseup", dom.ToEventListener(func(event *dom.Event) {
 
-		context := renderer.Canvas.GetContext()
+		bounding_rect   := canvas.Element.GetBoundingClientRect()
+		screen_position := hexgrid.ScreenPosition{
+			X: event.Value.Get("clientX").Int() - bounding_rect.X,
+			Y: event.Value.Get("clientY").Int() - bounding_rect.Y,
+		}
 
-		context.BeginPath()
-		context.SetFillStyleColor("#ff0000")
-		context.FillRect(10, 10, 20, 20)
-		context.ClosePath()
+		grid_position := grid.ToHexPosition(screen_position)
 
-		context.BeginPath()
-		context.SetStrokeStyleColor("#00ff00")
-		context.MoveTo(30, 20)
-		context.BezierCurveTo(
-			120,  30,
-			 30, 120,
-			120, 120,
-		)
-		context.Stroke()
-		context.ClosePath()
+		hexagon := grid.Get(grid_position.Q, grid_position.R, grid_position.S)
 
-		context.BeginPath()
-		context.Rect(120, 110, 20, 20)
-		context.SetStrokeStyleColor("#0000ff")
-		context.Stroke()
-		context.ClosePath()
+		if hexagon != nil {
+			sidebar.SetAttribute("data-state", "active")
+			renderer.SetHover(nil)
+			renderer.SetActive(hexagon)
+		} else {
+			sidebar.RemoveAttribute("data-state")
+			renderer.SetHover(nil)
+			renderer.SetActive(nil)
+		}
 
-		// Render Hexagons on top
-		renderer.Render()
+	}))
 
-	})
+	var screen_position hexgrid.ScreenPosition
 
 	canvas.Element.AddEventListener("mousemove", dom.ToEventListener(func(event *dom.Event) {
 
-		console.Log(event)
+		bounding_rect   := canvas.Element.GetBoundingClientRect()
+		screen_position = hexgrid.ScreenPosition{
+			X: event.Value.Get("clientX").Int() - bounding_rect.X,
+			Y: event.Value.Get("clientY").Int() - bounding_rect.Y,
+		}
+
+		grid_position := grid.ToHexPosition(screen_position)
+
+		hexagon := grid.Get(grid_position.Q, grid_position.R, grid_position.S)
+
+		if hexagon != nil {
+			renderer.SetHover(hexagon)
+		} else {
+			renderer.SetHover(nil)
+		}
 
 	}))
 
 	for true {
+
+		animations.RequestAnimationFrame(func(timestamp float64) {
+
+			renderer.Render()
+
+			context := renderer.Context
+			context.BeginPath()
+			context.SetFillStyleColor("#ff0000")
+			context.Arc(screen_position.X, screen_position.Y, 5, 0, 2.0 * math.Pi, false);
+			context.Fill()
+			context.ClosePath()
+
+		})
 
 		// Do Nothing
 		time.Sleep(100 * time.Millisecond)

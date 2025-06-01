@@ -237,17 +237,15 @@ func (self *Map) ToHexPosition(position ScreenPosition) HexPosition {
 
 	var translated HexPosition
 
-	tmp := ScreenPosition{
-		X: int((position.X - self.Origin.X) / self.Size),
-		Y: int((position.Y - self.Origin.Y) / self.Size),
-	}
+	tile_x := (float64(position.X) - float64(self.Origin.X)) / float64(self.Size)
+	tile_y := (float64(position.Y) - float64(self.Origin.Y)) / float64(self.Size)
 
 	if self.Layout == LayoutFlat {
 
 		orientation := orientation_flat
 
-		q := float64(orientation.B0 * float64(tmp.X) + orientation.B1 * float64(tmp.Y))
-		r := float64(orientation.B2 * float64(tmp.X) + orientation.B3 * float64(tmp.Y))
+		q := float64(orientation.B0 * tile_x + orientation.B1 * tile_y)
+		r := float64(orientation.B2 * tile_x + orientation.B3 * tile_y)
 		s := float64(-1 * q - r)
 
 		q_rounded := math.Round(q)
@@ -260,21 +258,21 @@ func (self *Map) ToHexPosition(position ScreenPosition) HexPosition {
 
 		if q_diff > r_diff && q_diff > s_diff {
 
-			translated.Q = int(-1 * r - s)
-			translated.R = int(r)
-			translated.S = int(s)
+			translated.Q = int(-1 * r_rounded - s_rounded)
+			translated.R = int(r_rounded)
+			translated.S = int(s_rounded)
 
 		} else if r_diff > s_diff {
 
-			translated.Q = int(q)
-			translated.R = int(-1 * q - s)
-			translated.S = int(s)
+			translated.Q = int(q_rounded)
+			translated.R = int(-1 * q_rounded - s_rounded)
+			translated.S = int(s_rounded)
 
 		} else {
 
-			translated.Q = int(q)
-			translated.R = int(r)
-			translated.S = int(-1 * q - r)
+			translated.Q = int(q_rounded)
+			translated.R = int(r_rounded)
+			translated.S = int(-1 * q_rounded - r_rounded)
 
 		}
 
@@ -282,8 +280,8 @@ func (self *Map) ToHexPosition(position ScreenPosition) HexPosition {
 
 		orientation := orientation_pointy
 
-		q := float64(orientation.B0 * float64(tmp.X) + orientation.B1 * float64(tmp.Y))
-		r := float64(orientation.B2 * float64(tmp.X) + orientation.B3 * float64(tmp.Y))
+		q := float64(orientation.B0 * tile_x + orientation.B1 * tile_y)
+		r := float64(orientation.B2 * tile_x + orientation.B3 * tile_y)
 		s := float64(-1 * q - r)
 
 		q_rounded := math.Round(q)
@@ -296,21 +294,21 @@ func (self *Map) ToHexPosition(position ScreenPosition) HexPosition {
 
 		if q_diff > r_diff && q_diff > s_diff {
 
-			translated.Q = int(-1 * r - s)
-			translated.R = int(r)
-			translated.S = int(s)
+			translated.Q = int(-1 * r_rounded - s_rounded)
+			translated.R = int(r_rounded)
+			translated.S = int(s_rounded)
 
 		} else if r_diff > s_diff {
 
-			translated.Q = int(q)
-			translated.R = int(-1 * q - s)
-			translated.S = int(s)
+			translated.Q = int(q_rounded)
+			translated.R = int(-1 * q_rounded - s_rounded)
+			translated.S = int(s_rounded)
 
 		} else {
 
-			translated.Q = int(q)
-			translated.R = int(r)
-			translated.S = int(-1 * q - r)
+			translated.Q = int(q_rounded)
+			translated.R = int(r_rounded)
+			translated.S = int(-1 * q_rounded - r_rounded)
 
 		}
 
