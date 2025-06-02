@@ -160,17 +160,10 @@ func (cache *Cache) QueryVulnerabilitiesByDistribution(query string) []string {
 		distribution_version = query[strings.Index(query, "-")+1:]
 	} else {
 		distribution_name = query
+		distribution_version = "any"
 	}
 
-	fmt.Println("Query: " + distribution_name + " " + distribution_version)
-
-	for name, _ := range cache.lookup {
-
-		for version, _ := range cache.lookup[name] {
-			fmt.Println("?> " + name + " ... " + version)
-		}
-
-	}
+	fmt.Println("Cache Query: " + distribution_name + " " + distribution_version)
 
 	result := make([]string, 0)
 
@@ -184,7 +177,33 @@ func (cache *Cache) QueryVulnerabilitiesByDistribution(query string) []string {
 
 			if distribution_version == "any" {
 
-				// TODO
+				_, ok2 := cache.lookup[distribution_name][distribution_version]
+
+				if ok2 == true {
+
+					for _, vulnerabilities := range cache.lookup[distribution_name][distribution_version] {
+
+						for _, name := range vulnerabilities {
+							found_map[name] = true
+						}
+
+					}
+
+				} else {
+
+					for distribution_version, _ := range cache.lookup[distribution_name] {
+
+						for _, vulnerabilities := range cache.lookup[distribution_name][distribution_version] {
+
+							for _, name := range vulnerabilities {
+								found_map[name] = true
+							}
+
+						}
+
+					}
+
+				}
 
 			} else if distribution_version != "" {
 
@@ -220,7 +239,25 @@ func (cache *Cache) QueryVulnerabilitiesByDistribution(query string) []string {
 
 }
 
-func (cache *Cache) QueryVulnerabilitiesByDistributionAndPackage(distribution_name string, distribution_version string, package_name string) []string {
+func (cache *Cache) QueryVulnerabilitiesByDistributionAndPackage(query_distribution string, query_package string) []string {
+
+	distribution_name := ""
+	distribution_version := ""
+	package_name := ""
+
+	if strings.Contains(query_distribution, "-") {
+		distribution_name    = query_distribution[0:strings.Index(query_distribution, "-")]
+		distribution_version = query_distribution[strings.Index(query_distribution, "-")+1:]
+	} else {
+		distribution_name = query_distribution
+		distribution_version = "any"
+	}
+
+	if query_package != "" {
+		package_name = query_package
+	} else {
+		package_name = "any"
+	}
 
 	result := make([]string, 0)
 
@@ -228,20 +265,21 @@ func (cache *Cache) QueryVulnerabilitiesByDistributionAndPackage(distribution_na
 
 		_, ok1 := cache.lookup[distribution_name]
 
-		if ok1 == true && distribution_version != "" {
+		if ok1 == true {
 
-			_, ok2 := cache.lookup[distribution_name][distribution_version]
+			if distribution_version == "any" {
 
-			if ok2 == true && package_name != "" {
+				// TODO: Iterate over any distribution_version
+				// TODO: Find vulnerabilities matching package names
 
-				if package_name != "any" {
+			} else if distribution_version != "" {
 
-					tmp, ok3 := cache.lookup[distribution_name][distribution_version][package_name]
+				if package_name != "" && package_name != "any" {
 
-					if ok3 == true {
-						result = tmp
-					}
+					// TODO: Find vulnerabilities matching distribution_name, distribution_version, and package_name
 
+				} else {
+					result = cache.QueryVulnerabilitiesByDistribution(query_distribution)
 				}
 
 			}
