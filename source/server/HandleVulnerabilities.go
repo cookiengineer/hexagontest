@@ -50,12 +50,12 @@ func HandleVulnerabilities(cache *Cache) {
 
 		if request.Method == http.MethodGet {
 
-			name := request.PathValue("name")
-			system := cache.GetSystem(name)
+			name          := request.PathValue("name")
+			vulnerability := cache.GetVulnerability(name)
 
-			if system != nil {
+			if vulnerability != nil {
 
-				payload, _ := json.MarshalIndent(system, "", "\t")
+				payload, _ := json.MarshalIndent(vulnerability, "", "\t")
 
 				fmt.Println("> GET /api/vulnerabilities/" + name + ": ok")
 

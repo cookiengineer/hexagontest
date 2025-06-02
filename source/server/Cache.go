@@ -110,6 +110,14 @@ func (cache *Cache) Init() bool {
 	fmt.Println("Cache: " + strconv.Itoa(count_systems) + " Systems")
 	fmt.Println("Cache: " + strconv.Itoa(count_vulnerabilities) + " Vulnerabilities")
 
+	for distribution_name, _ := range cache.lookup {
+
+		for distribution_version, _ := range cache.lookup[distribution_name] {
+			fmt.Println("Cache: " + distribution_name + "-" + distribution_version)
+		}
+
+	}
+
 	return result
 
 }
@@ -267,19 +275,78 @@ func (cache *Cache) QueryVulnerabilitiesByDistributionAndPackage(query_distribut
 
 		if ok1 == true {
 
+			found_map := make(map[string]bool)
+
 			if distribution_version == "any" {
 
-				// TODO: Iterate over any distribution_version
-				// TODO: Find vulnerabilities matching package names
+				_, ok2 := cache.lookup[distribution_name]["any"]
+
+				if ok2 == true {
+
+					if package_name != "" && package_name != "any" {
+
+						vulnerabilities, ok3 := cache.lookup[distribution_name]["any"][package_name]
+
+						if ok3 == true {
+
+							for _, name := range vulnerabilities {
+								found_map[name] = true
+							}
+
+						}
+
+					} else {
+						result = cache.QueryVulnerabilitiesByDistribution(query_distribution)
+					}
+
+				} else {
+
+					if package_name != "" && package_name != "any" {
+
+						for distribution_version, _ := range cache.lookup[distribution_name] {
+
+							vulnerabilities, ok3 := cache.lookup[distribution_name][distribution_version][package_name]
+
+							if ok3 == true {
+
+								for _, name := range vulnerabilities {
+									found_map[name] = true
+								}
+
+							}
+
+						}
+
+					} else {
+						result = cache.QueryVulnerabilitiesByDistribution(query_distribution)
+					}
+
+				}
 
 			} else if distribution_version != "" {
 
 				if package_name != "" && package_name != "any" {
 
-					// TODO: Find vulnerabilities matching distribution_name, distribution_version, and package_name
+					vulnerabilities, ok2 := cache.lookup[distribution_name][distribution_version][package_name]
+
+					if ok2 == true {
+
+						for _, name := range vulnerabilities {
+							found_map[name] = true
+						}
+
+					}
 
 				} else {
 					result = cache.QueryVulnerabilitiesByDistribution(query_distribution)
+				}
+
+			}
+
+			if len(found_map) > 0 {
+
+				for name, _ := range found_map {
+					result = append(result, name)
 				}
 
 			}
