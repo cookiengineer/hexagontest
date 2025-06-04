@@ -54,6 +54,26 @@ func (renderer *Renderer) Render() {
 
 }
 
+func (renderer *Renderer) RenderEntity(entity *Entity) {
+
+	context := renderer.Context
+
+	if entity.Hexagon != nil {
+
+		renderer.RenderHexagon(entity.Hexagon)
+
+		if entity.Image != nil {
+			// TODO: renderer.RenderImage(entity.Image, entity.Hexagon.Position)
+		}
+
+		if entity.Label != "" {
+			renderer.RenderLabel(entity.Label, entity.Hexagon.Position)
+		}
+
+	}
+
+}
+
 func (renderer *Renderer) RenderHexagon(hexagon *Hexagon) {
 
 	context := renderer.Context
