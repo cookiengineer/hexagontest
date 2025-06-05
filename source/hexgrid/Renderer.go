@@ -62,7 +62,7 @@ func (renderer *Renderer) RenderEntity(entity *Entity) {
 	pos_x, pos_y := entity.GetPosition()
 
 	context.BeginPath()
-	context.SetFillStyleColor("rgba(0,100,255,0.7)")
+	context.SetFillStyleColor("rgba(0,255,0,0.7)")
 	context.Arc(pos_x, pos_y, 16, 0.0, 2 * math.Pi, false)
 	context.Fill()
 	context.ClosePath()
