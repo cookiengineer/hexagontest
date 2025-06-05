@@ -1,6 +1,7 @@
 package hexgrid
 
 import "github.com/cookiengineer/gooey/bindings/canvas2d"
+import "math"
 
 type Renderer struct {
 	Canvas  *canvas2d.Canvas  `json:"canvas"`
@@ -58,19 +59,30 @@ func (renderer *Renderer) RenderEntity(entity *Entity) {
 
 	context := renderer.Context
 
-	if entity.Hexagon != nil {
+	pos_x, pos_y := entity.GetPosition()
 
-		renderer.RenderHexagon(entity.Hexagon)
+	context.BeginPath()
+	context.SetFillStyleColor("rgba(0,100,255,0.7)")
+	context.Arc(pos_x, pos_y, 16, 0.0, 2 * math.Pi, false)
+	context.Fill()
+	context.ClosePath()
 
-		if entity.Image != nil {
-			// TODO: renderer.RenderImage(entity.Image, entity.Hexagon.Position)
-		}
 
-		if entity.Label != "" {
-			renderer.RenderLabel(entity.Label, entity.Hexagon.Position)
-		}
+	// TODO: If Entity concept works, try to make an Entity for 2D effects
+	// TODO: If Entity concept works, create also a GridEntity for hexagon layer
+	// if entity.Hexagon != nil {
 
-	}
+	// 	renderer.RenderHexagon(entity.Hexagon)
+
+	// 	if entity.Image != nil {
+	// 		// TODO: renderer.RenderImage(entity.Image, entity.Hexagon.Position)
+	// 	}
+
+	// 	if entity.Label != "" {
+	// 		renderer.RenderLabel(entity.Label, entity.Hexagon.Position)
+	// 	}
+
+	// }
 
 }
 

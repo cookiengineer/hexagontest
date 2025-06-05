@@ -16,106 +16,30 @@ func main() {
 	sidebar := dom.Document.QuerySelector("aside")
 	canvas  := canvas2d.ToCanvas(element)
 
-	hexagons := []hexgrid.Hexagon{
-		hexgrid.NewHexagon( 0,  0,  0),
-		hexgrid.NewHexagon( 1, -1,  0),
-		hexgrid.NewHexagon(-1,  1,  0),
-		hexgrid.NewHexagon( 0,  1, -1),
-		hexgrid.NewHexagon( 0, -1,  1),
-		hexgrid.NewHexagon( 1,  0, -1),
-		hexgrid.NewHexagon(-1,  0,  1),
-	}
-	grid := hexgrid.NewGrid(1024, 640, 64)
-
-	for _, hexagon := range hexagons {
-		grid.Add(&hexagon)
+	entity := hexgrid.Entity{
+		Name:    "The Entity",
+		Image:   nil,
+		Effects: []*hexgrid.Effect{},
+		System:  nil,
+		Position: {
+			X: 0,
+			Y: 0,
+		},
 	}
 
-
-	response, err1 := fetch.Fetch("http://localhost:3000/api/systems", &fetch.Request{
-		Method: fetch.MethodGet,
-		Mode:   fetch.ModeSameOrigin,
-	})
-
-	if err1 == nil {
-
-		var system_names []string
-
-		json.Unmarshal(response.Body, &system_names)
-
-		for _, name := range system_names {
-
-			response2, err2 := fetch.Fetch("http://localhost:3000/api/systems/" + name, &fetch.Request{
-				Method: fetch.MethodGet,
-				Mode:   fetch.ModeSameOrigin,
-			})
-
-			if err2 == nil {
-
-				var system structs.System
-
-				json.Unmarshal(response2.Body, &system)
-
-				console.Log(system)
-
-			}
-
-		}
-	}
-
-	renderer := hexgrid.NewRenderer(canvas, &grid)
-
-	canvas.Element.AddEventListener("mouseup", dom.ToEventListener(func(event *dom.Event) {
-
-		bounding_rect   := canvas.Element.GetBoundingClientRect()
-		screen_position := hexgrid.ScreenPosition{
-			X: event.Value.Get("clientX").Int() - bounding_rect.X,
-			Y: event.Value.Get("clientY").Int() - bounding_rect.Y,
-		}
-
-		grid_position := grid.ToHexPosition(screen_position)
-
-		hexagon := grid.Get(grid_position.Q, grid_position.R, grid_position.S)
-
-		if hexagon != nil {
-			sidebar.SetAttribute("data-state", "active")
-			renderer.SetHover(nil)
-			renderer.SetActive(hexagon)
-		} else {
-			sidebar.RemoveAttribute("data-state")
-			renderer.SetHover(nil)
-			renderer.SetActive(nil)
-		}
-
-	}))
-
-	canvas.Element.AddEventListener("mousemove", dom.ToEventListener(func(event *dom.Event) {
-
-		bounding_rect   := canvas.Element.GetBoundingClientRect()
-		screen_position := hexgrid.ScreenPosition{
-			X: event.Value.Get("clientX").Int() - bounding_rect.X,
-			Y: event.Value.Get("clientY").Int() - bounding_rect.Y,
-		}
-
-		grid_position := grid.ToHexPosition(screen_position)
-		hexagon := grid.Get(grid_position.Q, grid_position.R, grid_position.S)
-
-		if hexagon != nil {
-			renderer.SetHover(hexagon)
-		} else {
-			renderer.SetHover(nil)
-		}
-
-	}))
+	renderer := hexgrid.NewRenderer(canvas, nil)
 
 	for true {
 
+		now := time.Now()
+
+		entity.Update(&now)
+
 		animations.RequestAnimationFrame(func(timestamp float64) {
-			renderer.Render()
+			renderer.RenderEntity(&entity)
 		})
 
-		// Do Nothing
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(16 * time.Millisecond)
 
 	}
 
